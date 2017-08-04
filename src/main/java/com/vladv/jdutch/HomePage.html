@@ -9,18 +9,21 @@
             <tr>
               <th>#</th>
               <th>Dutch</th>
-              <th>Eng</th>
-              <th>huh?</th>
+              <th>Try</th>
+              <th>Eng <a wicket:id="showall"><i class="glyphicon glyphicon-play-circle red"></i></a></th>
             </tr>
           </thead>
           <tbody wicket:id="container">
             <tr wicket:id="repeater">
-              <td wicket:id="counter">counter</td>
-              <td wicket:id="dutch">dutch</td>
-              <td><input type="text" wicket:id="text"></td>
-              <td><button class="label label-primary" wicket:id="submit">
-                  <i class="fa fa-ok"></i>
-                </button></td>
+              <td wicket:id="counter"></td>
+              <td wicket:id="dutch"></td>
+              <td>
+              		<div wicket:id="fieldcontainer" class="form-group has-warning has-feedback">
+					  <input wicket:id="text" type="text" class="form-control" aria-describedby="inputSuccess5Status">
+					  <span wicket:id="statusicon" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+					</div>
+              </td>
+              <td wicket:id="real"></td>
             </tr>
           </tbody>
         </table>

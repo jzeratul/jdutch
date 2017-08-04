@@ -20,10 +20,10 @@ public class BasePage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
 
-	protected int lesson = 1;
+	protected int lesson = 0;
 
-	protected int cnt = 1;
-
+	protected int listItemPosition = 1;
+	
 	public BasePage(final PageParameters parameters) {
 		super(parameters);
 
@@ -39,7 +39,7 @@ public class BasePage extends WebPage {
 			@Override
 			protected List<String> load() {
 
-				List<String> res = IntStream.range(0, 45)
+				List<String> res = IntStream.range(0, 16)
 						.mapToObj(i -> "Les" + i)
 						.collect(Collectors.toList());
 				
@@ -79,6 +79,9 @@ public class BasePage extends WebPage {
 
 			@Override
 			protected String load() {
+				if(val == null) {
+					return "";
+				}
 				return val.toString();
 			}
 		};
