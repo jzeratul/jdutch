@@ -26,10 +26,7 @@ import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
 @WicketHomePage
 @MountPath("/")
 public class HomePage extends BasePage {
-
-	private int lesson = 1;
-
-	private int cnt = 1;
+	private static final long serialVersionUID = 1L;
 
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
@@ -43,6 +40,7 @@ public class HomePage extends BasePage {
 		form.add(container);
 
 		LoadableDetachableModel<List<Entry<Object, Object>>> ldm = new LoadableDetachableModel<List<Entry<Object, Object>>>() {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected List<Entry<Object, Object>> load() {
@@ -50,12 +48,13 @@ public class HomePage extends BasePage {
 				Properties pr = tr.load(lesson);
 				Set<Entry<Object, Object>> entrySet = pr.entrySet();
 				cnt = 1;
-				System.out.println("loading properties " + entrySet.size());
+				System.out.println("Loading file " + lesson + " having " + entrySet.size() + " entries.");
 				return new ArrayList<>(entrySet);
 			}
 		};
 
 		ListView<Entry<Object, Object>> repeater = new ListView<Entry<Object, Object>>("repeater", ldm) {
+			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void populateItem(ListItem<Entry<Object, Object>> item) {
@@ -71,6 +70,7 @@ public class HomePage extends BasePage {
 				item.add(new Button("submit"));
 
 				textField.add(new OnChangeAjaxBehavior() {
+					private static final long serialVersionUID = 1L;
 
 					@Override
 					protected void onUpdate(AjaxRequestTarget target) {
@@ -79,6 +79,7 @@ public class HomePage extends BasePage {
 					}
 				});
 				textField.add(new AjaxFormSubmitBehavior("keypress") {
+					private static final long serialVersionUID = 1L;
 
 					@Override
 					protected void onSubmit(AjaxRequestTarget target) {
@@ -97,12 +98,9 @@ public class HomePage extends BasePage {
 	}
 
 	@Override
-	protected LoadableDetachableModel<String> getLoad(Object val) {
-		return new LoadableDetachableModel<String>() {
-			@Override
-			protected String load() {
-				return val.toString();
-			}
-		};
+	protected void lessonChanged(AjaxRequestTarget target) {
+		super.lessonChanged(target);
+		
+		target.add(get("form").get("container"));
 	}
 }

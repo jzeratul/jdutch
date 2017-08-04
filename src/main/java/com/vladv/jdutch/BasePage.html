@@ -1,6 +1,7 @@
 
 <!DOCTYPE html>
-<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org/" lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,31 +21,33 @@
 
 <body>
 
-  <div class="container theme-showcase" role="main">
+	<div class="container theme-showcase" role="main">
 
-    <form wicket:id="lessonsForm">
-      <p>
-        <wicket:container wicket:id="repeater">
-          <button type="button" wicket:id="choselesson" class="btn btn-lg btn-default">Les 1</button>
-        </wicket:container>
-        <button type="button" class="btn btn-lg btn-primary">Les 2</button>
-        <button type="button" class="btn btn-lg btn-success">Les 3</button>
-        <button type="button" class="btn btn-lg btn-info">Les 4</button>
-        <button type="button" class="btn btn-lg btn-warning">Les 5</button>
-        <button type="button" class="btn btn-lg btn-danger">Les 6</button>
-        <button type="button" class="btn btn-lg btn-link">Les 7</button>
-      </p>
-    </form>
+		<form wicket:id="lessonsForm">
+			<p>
+				<wicket:container wicket:id="repeater">
+					<button type="button" wicket:id="choselesson"
+						class="btn btn-md btn-default">Les 1</button>
+				</wicket:container>
+				<button type="button" class="btn btn-lg btn-primary">Les 2</button>
+				<button type="button" class="btn btn-lg btn-success">Les 3</button>
+				<button type="button" class="btn btn-lg btn-info">Les 4</button>
+				<button type="button" class="btn btn-lg btn-warning">Les 5</button>
+				<button type="button" class="btn btn-lg btn-danger">Les 6</button>
+				<button type="button" class="btn btn-lg btn-link">Les 7</button>
+			</p>
+		</form>
 
 
-    <div class="page-header">
-      <h1 wicket:id="lesson"></h1>
-    </div>
-    <wicket:child />
+		<div class="page-header">
+			<h1 wicket:id="lesson"></h1>
+		</div>
+		<wicket:child />
 
-  </div>
+	</div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

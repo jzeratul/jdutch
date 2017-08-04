@@ -14,7 +14,7 @@ public class Translations {
 
 	public Properties load(int lesson) {
 
-		InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("delftse" + lesson + ".properties");
+		InputStream in = ClassLoader.getSystemClassLoader().getResourceAsStream("delftse_les" + lesson + ".properties");
 		try {
 			prop.load(in);
 		} catch (IOException e) {
