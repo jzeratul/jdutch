@@ -1,0 +1,30 @@
+
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+
+  <div class="row">
+    <div class="col-md-12">
+      <form wicket:id="form">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Dutch</th>
+              <th>Eng</th>
+              <th>huh?</th>
+            </tr>
+          </thead>
+          <tbody wicket:id="container">
+            <tr wicket:id="repeater">
+              <td wicket:id="counter">counter</td>
+              <td wicket:id="dutch">dutch</td>
+              <td><input type="text" wicket:id="text"></td>
+              <td><button class="label label-primary" wicket:id="submit">
+                  <i class="fa fa-ok"></i>
+                </button></td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </div>
+</wicket:extend>

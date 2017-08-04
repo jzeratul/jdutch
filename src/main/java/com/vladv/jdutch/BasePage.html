@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
+
+<title>JDutch</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+
+<link href="theme.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="container theme-showcase" role="main">
+
+    <form wicket:id="lessonsForm">
+      <p>
+        <wicket:container wicket:id="repeater">
+          <button type="button" wicket:id="choselesson" class="btn btn-lg btn-default">Les 1</button>
+        </wicket:container>
+        <button type="button" class="btn btn-lg btn-primary">Les 2</button>
+        <button type="button" class="btn btn-lg btn-success">Les 3</button>
+        <button type="button" class="btn btn-lg btn-info">Les 4</button>
+        <button type="button" class="btn btn-lg btn-warning">Les 5</button>
+        <button type="button" class="btn btn-lg btn-danger">Les 6</button>
+        <button type="button" class="btn btn-lg btn-link">Les 7</button>
+      </p>
+    </form>
+
+
+    <div class="page-header">
+      <h1 wicket:id="lesson"></h1>
+    </div>
+    <wicket:child />
+
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
