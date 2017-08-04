@@ -77,10 +77,8 @@ public class HomePage extends BasePage {
 					propertiesCache.put(lesson, pr);
 				}
 				
-				Set<Entry<Object, Object>> entrySet = pr.entrySet();
 				listItemPosition = 1;
-				System.out.println("Loading file " + lesson + " having " + entrySet.size() + " entries.");
-				return new ArrayList<>(entrySet);
+				return new ArrayList<>(pr.entrySet());
 			}
 		};
 
