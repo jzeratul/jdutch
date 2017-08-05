@@ -1,7 +1,6 @@
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:wicket="http://wicket.apache.org/" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/" lang="en">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,27 +18,47 @@
 
 <body>
 
-	<div class="container theme-showcase" role="main">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Tests</a></li>
+          <li><a href="edit">Edit</a></li>
+        </ul>
+        <form style="margin-top: 8px;" wicket:id="formlang">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <button class="btn btn-primary" wicket:id="showall">
+                Translate
+              </button>
+            </li>
+            <li><select class="form-control" wicket:id="testtype"></select></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </nav>
 
-		<form wicket:id="lessonsForm">
-			<p>
-				<wicket:container wicket:id="repeater">
-					<button type="button" wicket:id="choselesson"
-						class="btn btn-md btn-default">Les 1</button>
-				</wicket:container>
-			</p>
-		</form>
+  <div class="container" role="main" style="margin-top: 70px;">
+
+    <form wicket:id="lessonsForm">
+      <p>
+        <wicket:container wicket:id="repeater">
+          <button type="button" wicket:id="choselesson" class="btn btn-md btn-default">Les
+            1</button>
+        </wicket:container>
+      </p>
+    </form>
 
 
-		<div class="page-header">
-			<h1 wicket:id="lesson"></h1>
-		</div>
-		<wicket:child />
+    <div class="page-header">
+      <h1 wicket:id="lesson"></h1>
+    </div>
+    <wicket:child />
 
-	</div>
+  </div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
