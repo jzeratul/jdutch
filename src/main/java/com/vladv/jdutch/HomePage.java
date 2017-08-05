@@ -33,32 +33,36 @@ import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
 public class HomePage extends BasePage {
 	private static final long serialVersionUID = 1L;
 
-	private boolean showtranslations = false;
-
 	private Map<String, String> responses = new HashMap<>();
 	private Map<Integer, Properties> propertiesCache = new HashMap<>();
 
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
 
-		WebMarkupContainer container = new WebMarkupContainer("container");
-		container.setOutputMarkupId(true);
-
-		Form<Bean> form = new Form<Bean>("form");
-
-		add(form);
-		form.add(container);
-
-		form.add(new AjaxButton("showall") {
+		WebMarkupContainer tablebody = new WebMarkupContainer("tablebody");
+		tablebody.setOutputMarkupId(true);
+		WebMarkupContainer tableheader = new WebMarkupContainer("tableheader");
+		tableheader.setOutputMarkupId(true);
+		tableheader.add(new Label("from", new LoadableDetachableModel<String>() {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-				showtranslations = !showtranslations;
-
-				target.add(this.getParent().get("container"));
+			protected String load() {
+				return getFrom();
 			}
-		});
+		}));
+		tableheader.add(new Label("to", new LoadableDetachableModel<String>() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected String load() {
+				return getTo();
+			}
+		}));
+		Form<Bean> form = new Form<Bean>("form");
+		add(form);
+		form.add(tablebody);
+		form.add(tableheader);
 
 		LoadableDetachableModel<List<Entry<Object, Object>>> ldm = new LoadableDetachableModel<List<Entry<Object, Object>>>() {
 			private static final long serialVersionUID = 1L;
@@ -69,14 +73,14 @@ public class HomePage extends BasePage {
 				if (lesson == 0) {
 					return Collections.emptyList();
 				}
-				
+
 				Properties pr = propertiesCache.get(lesson);
-				if(pr == null) {
+				if (pr == null) {
 					Translations translations = new Translations();
 					pr = translations.load(lesson);
 					propertiesCache.put(lesson, pr);
 				}
-				
+
 				listItemPosition = 1;
 				return new ArrayList<>(pr.entrySet());
 			}
@@ -93,31 +97,30 @@ public class HomePage extends BasePage {
 				String val = (String) obj.getValue();
 
 				item.add(new Label("counter", getLoad("" + (listItemPosition++))));
-				item.add(new Label("dutch", getLoad(key)));
+				item.add(new Label("from", getLoad(isSwitched() ? val : key)));
 				String response = responses.get(lesson + key);
 				TextField<String> textField = new TextField<String>("text", getLoad(response));
 				WebMarkupContainer fieldcontainer = new WebMarkupContainer("fieldcontainer");
 				WebMarkupContainer statusicon = new WebMarkupContainer("statusicon");
-				
-				if(showtranslations) {
+
+				if (showtranslations) {
 
 					Properties pr = propertiesCache.get(lesson);
-					String real = pr.getProperty(key);
-					
-					if(real.equals(response)) {
+					String value = isSwitched() ? key : pr.getProperty(key);
+
+					if (value.equals(response)) {
 						fieldcontainer.add(AttributeModifier.replace("class", getLoad("form-group has-success has-feedback")));
 						statusicon.add(AttributeModifier.replace("class", getLoad("glyphicon glyphicon-ok form-control-feedback")));
 					} else {
 						fieldcontainer.add(AttributeModifier.replace("class", getLoad("form-group has-error has-feedback")));
 						statusicon.add(AttributeModifier.replace("class", getLoad("glyphicon glyphicon-remove form-control-feedback")));
 					}
-					
 				}
-				
+
 				fieldcontainer.add(textField);
 				item.add(fieldcontainer);
 				fieldcontainer.add(statusicon);
-				item.add(new Label("real", getLoad(showtranslations ? val : "")));
+				item.add(new Label("to", getLoad(showtranslations ? isSwitched() ? key : val : "")));
 
 				textField.add(new OnChangeAjaxBehavior() {
 					private static final long serialVersionUID = 1L;
@@ -128,27 +131,36 @@ public class HomePage extends BasePage {
 						responses.put(lesson + key, typed);
 					}
 				});
-				// textField.add(new AjaxFormSubmitBehavior("keypress") {
-				// private static final long serialVersionUID = 1L;
-				//
-				// @Override
-				// protected void onSubmit(AjaxRequestTarget target) {
-				// super.onSubmit(target);
-				// System.out.println("keypress" + key + " " + val + " " +
-				// textField.getDefaultModelObjectAsString());
-				// }
-				//
-				// });
 			}
 		};
 
-		container.add(repeater);
+		tablebody.add(repeater);
 	}
 
 	@Override
 	protected void lessonChanged(AjaxRequestTarget target) {
 		super.lessonChanged(target);
 
-		target.add(get("form").get("container"));
+		target.add(get("form").get("tablebody"));
+	}
+
+	@Override
+	protected void showTranslations(AjaxRequestTarget target) {
+		super.showTranslations(target);
+
+		target.add(get("form").get("tablebody"));
+	}
+
+	@Override
+	protected void testTypeChanged(AjaxRequestTarget target) {
+		super.testTypeChanged(target);
+
+		target.add(get("form").get("tableheader"));
+		target.add(get("form").get("tablebody"));
+	}
+
+	@Override
+	protected boolean showToolbar() {
+		return true;
 	}
 }
