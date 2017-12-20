@@ -1,23 +1,18 @@
 package com.vladv.jdutch;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.Set;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -91,7 +86,7 @@ public class HomePage extends BasePage {
 
 			@Override
 			protected void populateItem(ListItem<Entry<Object, Object>> item) {
-				Entry<Object, Object> obj = (Entry<Object, Object>) item.getDefaultModelObject();
+				Entry<Object, Object> obj = item.getModelObject();
 
 				String key = (String) obj.getKey();
 				String val = (String) obj.getValue();

@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.OnChangeAjaxBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -25,20 +24,20 @@ public class BasePage extends WebPage {
 
 	protected static final String TYPE_EN_DT = "English to Dutch";
 	protected static final String TYPE_DT_EN = "Dutch to English";
-	
+
 	protected String testtype = TYPE_EN_DT;
 	protected int lesson = 0;
 	protected int listItemPosition = 1;
 
 	protected boolean showtranslations = false;
-	
+
 	public BasePage(final PageParameters parameters) {
 		super(parameters);
 
 		Label header = new Label("lesson");
 		add(header);
 		header.setOutputMarkupId(true);
-		
+
 		Form<String> formlang = new Form<String>("formlang") {
 			@Override
 			public boolean isVisible() {
@@ -46,15 +45,15 @@ public class BasePage extends WebPage {
 			}
 		};
 		add(formlang);
-		
+
 		formlang.add(new AjaxButton("showall") {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				showtranslations = !showtranslations;
 				showTranslations(target);
-				if(showtranslations) {
+				if (showtranslations) {
 					this.setModel(getLoad("Hide Translations"));
 				} else {
 					this.setModel(getLoad("Translate"));
@@ -62,11 +61,11 @@ public class BasePage extends WebPage {
 				target.add(this);
 			}
 		});
-		
-		DropDownChoice<String> testChoice = new DropDownChoice("testtype", new Model(TYPE_EN_DT), Model.of(Arrays.asList(TYPE_EN_DT, TYPE_DT_EN)));
+
+		DropDownChoice<String> testChoice = new DropDownChoice<String>("testtype", Model.of(TYPE_EN_DT), Arrays.asList(TYPE_EN_DT, TYPE_DT_EN));
 		formlang.add(testChoice);
 		testChoice.setNullValid(false);
-		
+
 		testChoice.add(new OnChangeAjaxBehavior() {
 			private static final long serialVersionUID = 1L;
 
@@ -85,10 +84,8 @@ public class BasePage extends WebPage {
 			@Override
 			protected List<String> load() {
 
-				List<String> res = IntStream.range(0, 16)
-						.mapToObj(i -> "Les" + i)
-						.collect(Collectors.toList());
-				
+				List<String> res = IntStream.range(0, 16).mapToObj(i -> "Les" + i).collect(Collectors.toList());
+
 				return res;
 			}
 		};
@@ -119,11 +116,11 @@ public class BasePage extends WebPage {
 	}
 
 	protected void showTranslations(AjaxRequestTarget target) {
-		
+
 	}
 
 	protected void testTypeChanged(AjaxRequestTarget target) {
-		
+
 	}
 
 	protected void lessonChanged(AjaxRequestTarget target) {
@@ -136,7 +133,7 @@ public class BasePage extends WebPage {
 
 			@Override
 			protected String load() {
-				if(val == null) {
+				if (val == null) {
 					return "";
 				}
 				return val.toString();
@@ -156,14 +153,15 @@ public class BasePage extends WebPage {
 			this.text = text;
 		}
 	}
-	
+
 	protected boolean isSwitched() {
 		return testtype.equals(TYPE_EN_DT);
 	}
-	
+
 	protected String getFrom() {
 		return testtype.equals(TYPE_EN_DT) ? "English" : "Dutch";
 	}
+
 	protected String getTo() {
 		return testtype.equals(TYPE_EN_DT) ? "Dutch" : "English";
 	}
