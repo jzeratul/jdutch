@@ -1,32 +1,27 @@
+<wicket:head xmlns:wicket="http://wicket.apache.org">
+
+  <link href="css/summernote.css" rel="stylesheet">
+  <script src="js/summernote.js"></script>
+  <script src="js/summernote_init.js"></script>
+
+</wicket:head>
 
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
 
   <div class="row">
     <div class="col-md-12">
+
       <form wicket:id="form">
-        <table class="table table-striped">
-          <thead>
-            <tr wicket:id="tableheader">
-              <th>#</th>
-              <th wicket:id="from"></th>
-              <th>Try</th>
-              <th wicket:id="to"></th>
-            </tr>
-          </thead>
-          <tbody wicket:id="tablebody">
-            <tr wicket:id="repeater">
-              <td wicket:id="counter"></td>
-              <td wicket:id="from"></td>
-              <td>
-              		<div wicket:id="fieldcontainer" class="form-group has-warning has-feedback">
-					  <input wicket:id="text" type="text" class="form-control" aria-describedby="inputSuccess5Status">
-					  <span wicket:id="statusicon" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-					</div>
-              </td>
-              <td wicket:id="to"></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="form-group">
+          <label for="testname">Test Name</label> 
+          <input type="text" class="form-control" id="testname" wicket:id="testname" placeholder="Enter the name of the test">
+        </div>
+        <div class="form-group">
+          <label for="summernote">Test Contents</label>
+          <div id="summernote"></div>
+        </div>
+        <textarea wicket:id="testcontents" hidden="hidden" id="htc"></textarea>
+        <button type="submit" class="btn btn-primary" onclick="adaptForm()">Submit</button>
       </form>
     </div>
   </div>
