@@ -8,24 +8,38 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import com.vladv.jdutch.domain.StorageService;
+
 @SpringBootApplication
-public class JdutchApplication extends WebApplication {
+public class JDutchApplication extends WebApplication {
 
 	@Autowired
 	private ApplicationContext applicationContext;
+
+	@Autowired
+	private StorageService service;
 
 	@Override
 	public Class<? extends Page> getHomePage() {
 		return HomePage.class;
 	}
 
+	public StorageService getStorageService() {
+		return service;
+	}
+
 	@Override
 	protected void init() {
 		super.init();
+
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this, applicationContext));
 	}
 
+	public static JDutchApplication getApp() {
+		return (JDutchApplication) JDutchApplication.get();
+	}
+
 	public static void main(String[] args) {
-		SpringApplication.run(JdutchApplication.class, args);
+		SpringApplication.run(JDutchApplication.class, args);
 	}
 }
