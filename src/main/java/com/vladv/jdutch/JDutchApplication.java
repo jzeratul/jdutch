@@ -1,17 +1,17 @@
 package com.vladv.jdutch;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
+import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
 import com.vladv.jdutch.domain.StorageService;
 
 @SpringBootApplication
-public class JDutchApplication extends WebApplication {
+public class JDutchApplication extends WicketBootStandardWebApplication {
 
 	@Autowired
 	private ApplicationContext applicationContext;

@@ -51,7 +51,7 @@ public class StorageService {
 
 	public List<TestPojo> findAll() {
 
-		List<TestPojo> result = jsonDBTemplate.findAll(TestPojo.class);
+		List<TestPojo> result = jsonDBTemplate.findAll("instances");
 
 		return result;
 	}
