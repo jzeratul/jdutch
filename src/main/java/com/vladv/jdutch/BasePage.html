@@ -11,8 +11,11 @@
 
 <title>JDutch</title>
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-theme.css" rel="stylesheet">
+
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.js"></script>
 
 </head>
 
@@ -25,40 +28,14 @@
           <li><a href="/">Tests</a></li>
           <li><a href="edit">Edit</a></li>
         </ul>
-        <form style="margin-top: 8px;" wicket:id="formlang">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <button class="btn btn-primary" wicket:id="showall">
-                Translate
-              </button>
-            </li>
-            <li><select class="form-control" wicket:id="testtype"></select></li>
-          </ul>
-        </form>
       </div>
     </div>
   </nav>
 
   <div class="container" role="main" style="margin-top: 70px;">
 
-    <form wicket:id="lessonsForm">
-      <p>
-        <wicket:container wicket:id="repeater">
-          <button type="button" wicket:id="choselesson" class="btn btn-md btn-default">Les
-            1</button>
-        </wicket:container>
-      </p>
-    </form>
-
-
-    <div class="page-header">
-      <h1 wicket:id="lesson"></h1>
-    </div>
     <wicket:child />
 
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
