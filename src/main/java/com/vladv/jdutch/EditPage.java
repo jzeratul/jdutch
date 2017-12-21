@@ -52,7 +52,7 @@ public class EditPage extends BasePage {
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 
-				JDutchApplication.getApp().getRepository().delete(form.getModelObject());
+				JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
 
 				target.add(EditPage.this);
 			}
