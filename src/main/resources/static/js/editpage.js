@@ -9,6 +9,7 @@ $(document).ready(function() {
 	$('.note-editable.panel-body').html($('#htc').text())
 });
 
+
 adaptForm = function() {
 	$('#htc').text($('.note-editable.panel-body').html())
 }
