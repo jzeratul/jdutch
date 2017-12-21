@@ -65,9 +65,8 @@
 			<version>${wicket.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.jsondb</groupId>
-			<artifactId>jsondb-core</artifactId>
-			<version>1.0.36</version>
+	        <groupId>org.mongodb</groupId>
+	        <artifactId>mongo-java-driver</artifactId>
 		</dependency>
 
 		<dependency>
@@ -79,6 +78,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 	</dependencies>
 

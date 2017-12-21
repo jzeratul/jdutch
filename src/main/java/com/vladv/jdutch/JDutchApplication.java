@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
-import com.vladv.jdutch.domain.StorageService;
+import com.vladv.jdutch.domain.TestRepository;
 
 @SpringBootApplication
 public class JDutchApplication extends WicketBootStandardWebApplication {
@@ -17,15 +17,15 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private StorageService service;
+	private TestRepository repository;
 
 	@Override
 	public Class<? extends Page> getHomePage() {
 		return HomePage.class;
 	}
 
-	public StorageService getStorageService() {
-		return service;
+	public TestRepository getRepository() {
+		return repository;
 	}
 
 	@Override

@@ -5,6 +5,8 @@ $(document).ready(function() {
 		    ['style', ['bold','clear']],
 		  ]
 		});
+
+	$('.note-editable.panel-body').html($('#htc').text())
 });
 
 adaptForm = function() {

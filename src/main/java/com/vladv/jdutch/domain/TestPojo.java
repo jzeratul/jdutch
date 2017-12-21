@@ -2,14 +2,9 @@ package com.vladv.jdutch.domain;
 
 import java.io.Serializable;
 
-import io.jsondb.annotation.Document;
-import io.jsondb.annotation.Id;
-
-@Document(collection = "instances", schemaVersion = "1.0")
 public class TestPojo implements Serializable {
 
-	@Id
-	private Long id;
+	private String id;
 
 	private String testname;
 	private String testcontents;
@@ -33,5 +28,13 @@ public class TestPojo implements Serializable {
 
 	public void setTestcontents(String testcontents) {
 		this.testcontents = testcontents;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

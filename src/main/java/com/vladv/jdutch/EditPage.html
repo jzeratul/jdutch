@@ -17,8 +17,19 @@
     </div>
     </div>
     <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-      
-      <span wicket:id="contents"></span>
+
+      <form wicket:id="form">
+        <div class="form-group">
+          <label for="testname">Test Name</label> 
+          <input type="text" class="form-control" id="testname" wicket:id="testname" autocomplete="off" placeholder="Enter the name of the test">
+        </div>
+        <div class="form-group">
+          <label for="summernote">Test Contents</label>
+          <div id="summernote"></div>
+        </div>
+        <textarea wicket:id="testcontents" hidden="hidden" id="htc"></textarea>
+        <button type="submit" class="btn btn-primary" onclick="adaptForm()">Submit</button>
+      </form>
       
     </div>
   </div>

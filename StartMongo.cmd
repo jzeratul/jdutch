@@ -1,0 +1,1 @@
+docker run -it --rm -p 127.0.0.1:27017:27017 -v mongodata:/data/db mongo
