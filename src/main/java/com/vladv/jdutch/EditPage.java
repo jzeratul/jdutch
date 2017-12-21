@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -44,6 +45,18 @@ public class EditPage extends BasePage {
 		form.add(new TextArea<String>("testcontents"));
 
 		add(form);
+
+		form.add(new AjaxButton("delete") {
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target) {
+				super.onSubmit(target);
+
+				JDutchApplication.getApp().getRepository().delete(form.getModelObject());
+
+				target.add(EditPage.this);
+			}
+		});
 
 		LoadableDetachableModel<List<TestPojo>> ldm = new LoadableDetachableModel<List<TestPojo>>() {
 
