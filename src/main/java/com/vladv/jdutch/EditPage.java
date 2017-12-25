@@ -14,32 +14,22 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
 import com.vladv.jdutch.domain.TestPojo;
 
-@WicketHomePage
 @MountPath("/edit")
 public class EditPage extends BasePage {
-	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(EditPage.class);
 
-	public EditPage(final PageParameters parameters) {
-		super(parameters);
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 
 		final CompoundPropertyModel<TestPojo> model = new CompoundPropertyModel<TestPojo>(new TestPojo());
-		Form<TestPojo> form = new Form<TestPojo>("form", model) {
-
-			@Override
-			protected void onSubmit() {
-				super.onSubmit();
-
-				JDutchApplication.getApp().getRepository().save(this.getModelObject());
-
-				this.setModelObject(new TestPojo());
-			}
-		};
+		Form<TestPojo> form = new Form<TestPojo>("form", model);
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
@@ -57,12 +47,27 @@ public class EditPage extends BasePage {
 				target.add(EditPage.this);
 			}
 		});
+		
+		form.add(new AjaxButton("save") {
+			
+			@Override
+			protected void onSubmit(AjaxRequestTarget target) {
+
+				JDutchApplication.getApp().getRepository().save(form.getModelObject());
+				form.setModelObject(new TestPojo());
+				
+				target.add(EditPage.this);
+			}
+		});
 
 		LoadableDetachableModel<List<TestPojo>> ldm = new LoadableDetachableModel<List<TestPojo>>() {
 
 			@Override
 			protected List<TestPojo> load() {
 				List<TestPojo> findAll = JDutchApplication.getApp().getRepository().findAll();
+				
+				LOGGER.info("Retrieving Tests: " + findAll.size());
+				
 				return findAll;
 			}
 		};
