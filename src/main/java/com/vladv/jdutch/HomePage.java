@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -90,24 +91,24 @@ public class HomePage extends BasePage {
 		public void refresh(AjaxRequestTarget target, String contents) {
 
 			target.add(this.get("form:contents").setDefaultModelObject(contents));
-			// target.add(this.get("form:alert").setVisible(false));
+//			target.add(this.get("form:submittest").setVisible(true));
 		}
 
 		@Override
 		protected void onInitialize() {
 			super.onInitialize();
 
-			Label alert = new Label("alert", Model.of(""));
-			alert.setVisible(false);
-			alert.setOutputMarkupId(true);
-
 			Form<String> form = new Form<String>("form", Model.of(""));
 
-			form.add(alert);
 			final Label contents = new Label("contents", Model.of("Select Test"));
 			form.add(contents);
 			contents.setEscapeModelStrings(false);
 			contents.setOutputMarkupId(true);
+
+			final FeedbackPanel feedback = new FeedbackPanel("feedback");
+			feedback.setOutputMarkupId(true);
+			feedback.setVisible(false);
+			add(feedback);
 
 			AjaxButton submitbutton = new AjaxButton("submittest") {
 
@@ -120,12 +121,15 @@ public class HomePage extends BasePage {
 
 					try {
 						String results = takeTest(contents.getDefaultModelObjectAsString(), requestParameters);
-						alert.setDefaultModelObject(results);
-						alert.setVisible(true);
-						target.add(alert);
+						info(results);
+						LOGGER.info(results);
 					} catch (Exception e) {
-						e.printStackTrace();
+						error(e.getMessage());
+						LOGGER.error(e.getMessage(), e);
 					}
+					feedback.setVisible(true);
+					target.add(feedback);
+					target.add(TestPanel.this);
 				}
 
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
@@ -134,7 +138,7 @@ public class HomePage extends BasePage {
 
 					int items = nrParams / 2;
 
-					StringBuilder results = new StringBuilder("Out of " + items + " items you got: ");
+					StringBuilder results = new StringBuilder("Out of ").append(items).append(" items you got: ");
 
 					int ok = 0;
 					int nok = 0;
@@ -160,6 +164,9 @@ public class HomePage extends BasePage {
 					return results.toString();
 				}
 			};
+//			submitbutton.setVisible(false);
+			submitbutton.setOutputMarkupId(true);
+
 			form.add(submitbutton);
 
 			add(form);
