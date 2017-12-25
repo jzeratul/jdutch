@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	prepareSummerNote();
+});
+
+prepareSummerNote = function() {
 	$('#summernote').summernote({
 		  toolbar: [
 		    // [groupName, [list of button]]
@@ -6,9 +10,8 @@ $(document).ready(function() {
 		  ]
 		});
 
-	$('.note-editable.panel-body').html($('#htc').text())
-});
-
+	$('.note-editable.panel-body').html($('#htc').text())	
+}
 
 adaptForm = function() {
 	$('#htc').text($('.note-editable.panel-body').html())

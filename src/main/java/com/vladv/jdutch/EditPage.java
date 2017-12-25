@@ -2,6 +2,8 @@ package com.vladv.jdutch;
 
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -13,6 +15,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +36,7 @@ public class EditPage extends BasePage {
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
-
+		form.setOutputMarkupId(true);
 		add(form);
 
 		form.add(new AjaxButton("delete") {
@@ -73,6 +76,8 @@ public class EditPage extends BasePage {
 		};
 		ListView<TestPojo> tests = new ListView<TestPojo>("tests", ldm) {
 
+			private Component lastTest;
+			
 			@Override
 			protected void populateItem(ListItem<TestPojo> item) {
 
@@ -83,7 +88,19 @@ public class EditPage extends BasePage {
 					protected void onEvent(AjaxRequestTarget target) {
 
 						model.setObject(item.getModelObject());
-						target.add(EditPage.this);
+						
+						if (lastTest != null) {
+							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
+							target.add(lastTest);
+						}
+
+						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
+						target.add(item);
+
+						lastTest = item;
+						target.add(form);
+						
+						target.appendJavaScript("prepareSummerNote();");
 					}
 				});
 			}
