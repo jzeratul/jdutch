@@ -3,6 +3,8 @@ package com.vladv.jdutch;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -32,10 +34,10 @@ public class HomePage extends BasePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		
+
 		TestPanel contents = new TestPanel("switchComponent");
 		add(contents);
-		
+
 		LoadableDetachableModel<List<TestPojo>> ldm = new LoadableDetachableModel<List<TestPojo>>() {
 
 			@Override
@@ -44,8 +46,10 @@ public class HomePage extends BasePage {
 				return findAll;
 			}
 		};
-		
+
 		ListView<TestPojo> tests = new ListView<TestPojo>("tests", ldm) {
+
+			private Component lastTest;
 
 			@Override
 			protected void populateItem(ListItem<TestPojo> item) {
@@ -58,36 +62,47 @@ public class HomePage extends BasePage {
 
 						contents.refresh(target, item.getModelObject().getTestcontents());
 						target.appendJavaScript("replaceAllBoldElementsWithInput();");
+
+						if (lastTest != null) {
+							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
+							target.add(lastTest);
+						}
+
+						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
+						target.add(item);
+
+						lastTest = item;
 					}
-				}); 
+				});
 			}
 		};
 		add(tests);
 	}
-	
+
 	private static final class TestPanel extends Panel {
-		
+
 		public TestPanel(final String id) {
 			super(id);
-			
+
 			this.setOutputMarkupId(true);
 		}
 
 		public void refresh(AjaxRequestTarget target, String contents) {
-			
+
 			target.add(this.get("form:contents").setDefaultModelObject(contents));
+			// target.add(this.get("form:alert").setVisible(false));
 		}
-		
+
 		@Override
 		protected void onInitialize() {
 			super.onInitialize();
-			
+
 			Label alert = new Label("alert", Model.of(""));
 			alert.setVisible(false);
 			alert.setOutputMarkupId(true);
-			
+
 			Form<String> form = new Form<String>("form", Model.of(""));
-			
+
 			form.add(alert);
 			final Label contents = new Label("contents", Model.of("Select Test"));
 			form.add(contents);
@@ -116,32 +131,32 @@ public class HomePage extends BasePage {
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 					Set<String> parameterNames = requestParameters.getParameterNames();
 					int nrParams = parameterNames.size() - 2; // two params sent from ui are out of scope
-					
+
 					int items = nrParams / 2;
 
 					StringBuilder results = new StringBuilder("Out of " + items + " items you got: ");
-					
+
 					int ok = 0;
 					int nok = 0;
 					for (int p = 0; p < items; p++) {
-						
+
 						String paramName = "element" + p;
 						String paramNameOriginal = "element" + p + "_original";
 						String paramNewValue = requestParameters.getParameterValue(paramName).toString();
 						String paramOriginalValue = requestParameters.getParameterValue(paramNameOriginal).toString();
-						
-						if(paramOriginalValue.equalsIgnoreCase(paramNewValue)) {
+
+						if (paramOriginalValue.equalsIgnoreCase(paramNewValue)) {
 							ok++;
 						} else {
 							nok++;
 						}
 					}
 					results.append(ok + " right and ").append(nok + " wrong.");
-					
-					if(nok==0) {
+
+					if (nok == 0) {
 						results.append(" You are awesomeeee!!");
 					}
-					
+
 					return results.toString();
 				}
 			};
