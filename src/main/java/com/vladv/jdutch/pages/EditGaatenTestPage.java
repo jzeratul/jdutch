@@ -24,7 +24,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.TestPojo;
 
-@MountPath("/edit")
+@MountPath("/editgaaten")
 public class EditGaatenTestPage extends BasePage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(EditGaatenTestPage.class);
 
