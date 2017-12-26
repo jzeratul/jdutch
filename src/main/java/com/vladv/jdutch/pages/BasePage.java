@@ -1,4 +1,4 @@
-package com.vladv.jdutch;
+package com.vladv.jdutch.pages;
 
 import org.apache.wicket.markup.html.WebPage;
 

@@ -1,4 +1,4 @@
-package com.vladv.jdutch;
+package com.vladv.jdutch.pages;
 
 import java.util.List;
 import java.util.Set;
@@ -24,13 +24,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
-import com.giffing.wicket.spring.boot.context.scan.WicketHomePage;
+import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.TestPojo;
 
-@WicketHomePage
-@MountPath("/")
-public class HomePage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(HomePage.class);
+@MountPath("/gaaten")
+public class GaatenTestPage extends BasePage {
+	private static final Logger LOGGER = LoggerFactory.getLogger(GaatenTestPage.class);
 
 	@Override
 	protected void onInitialize() {

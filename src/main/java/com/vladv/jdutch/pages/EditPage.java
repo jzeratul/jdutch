@@ -1,4 +1,4 @@
-package com.vladv.jdutch;
+package com.vladv.jdutch.pages;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
+import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.TestPojo;
 
 @MountPath("/edit")
@@ -39,15 +40,19 @@ public class EditPage extends BasePage {
 		form.setOutputMarkupId(true);
 		add(form);
 
-		form.add(new AjaxButton("delete") {
+		form.add(new AjaxButton("delete", Model.of("Delete")) {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 				super.onSubmit(target);
 
-				JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
-
-				target.add(EditPage.this);
+				if(this.getModelObject().equals("Delete")) {
+					this.setModelObject("Are you sure you want to delete this test?");
+					target.add(this);
+				} else {
+					JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
+					setResponsePage(EditPage.class);
+				}
 			}
 		});
 		
