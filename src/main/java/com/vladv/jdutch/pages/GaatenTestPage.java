@@ -90,7 +90,6 @@ public class GaatenTestPage extends BasePage {
 		public void refresh(AjaxRequestTarget target, String contents) {
 
 			target.add(this.get("form:contents").setDefaultModelObject(contents));
-//			target.add(this.get("form:submittest").setVisible(true));
 		}
 
 		@Override
@@ -130,7 +129,7 @@ public class GaatenTestPage extends BasePage {
 					target.add(feedback);
 					target.add(TestPanel.this);
 				}
-
+				
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 					Set<String> parameterNames = requestParameters.getParameterNames();
 					int nrParams = parameterNames.size() - 2; // two params sent from ui are out of scope
@@ -163,7 +162,6 @@ public class GaatenTestPage extends BasePage {
 					return results.toString();
 				}
 			};
-//			submitbutton.setVisible(false);
 			submitbutton.setOutputMarkupId(true);
 
 			form.add(submitbutton);

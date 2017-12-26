@@ -25,8 +25,8 @@ import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.TestPojo;
 
 @MountPath("/edit")
-public class EditPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditPage.class);
+public class EditGaatenTestPage extends BasePage {
+	private static final Logger LOGGER = LoggerFactory.getLogger(EditGaatenTestPage.class);
 
 	@Override
 	protected void onInitialize() {
@@ -51,7 +51,7 @@ public class EditPage extends BasePage {
 					target.add(this);
 				} else {
 					JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
-					setResponsePage(EditPage.class);
+					setResponsePage(EditGaatenTestPage.class);
 				}
 			}
 		});
@@ -64,7 +64,7 @@ public class EditPage extends BasePage {
 				JDutchApplication.getApp().getRepository().save(form.getModelObject());
 				form.setModelObject(new TestPojo());
 				
-				target.add(EditPage.this);
+				target.add(EditGaatenTestPage.this);
 			}
 		});
 

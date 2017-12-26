@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
 import com.vladv.jdutch.domain.TestRepository;
+import com.vladv.jdutch.pages.ErrorPage;
 import com.vladv.jdutch.pages.HomePage;
 
 @SpringBootApplication
@@ -34,6 +35,9 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 		super.init();
 
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this, applicationContext));
+		getApplicationSettings().setAccessDeniedPage(ErrorPage.class);
+		getApplicationSettings().setInternalErrorPage(ErrorPage.class);
+		getApplicationSettings().setPageExpiredErrorPage(ErrorPage.class);
 	}
 
 	public static JDutchApplication getApp() {
