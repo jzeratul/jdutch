@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.domain.TestPojo;
+import com.vladv.jdutch.domain.VerbTest;
 
 @MountPath("/editverb")
 public class EditVerbTestPage extends BasePage {
@@ -32,8 +32,8 @@ public class EditVerbTestPage extends BasePage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		final CompoundPropertyModel<TestPojo> model = new CompoundPropertyModel<TestPojo>(new TestPojo());
-		Form<TestPojo> form = new Form<TestPojo>("form", model);
+		final CompoundPropertyModel<VerbTest> model = new CompoundPropertyModel<VerbTest>(new VerbTest());
+		Form<VerbTest> form = new Form<VerbTest>("form", model);
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
@@ -50,7 +50,7 @@ public class EditVerbTestPage extends BasePage {
 					this.setModelObject("Are you sure you want to delete this test?");
 					target.add(this);
 				} else {
-					JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
+					JDutchApplication.getApp().getVerbTestRepository().deleteVerbTestByTestname(model.getObject().getTestname());
 					setResponsePage(EditVerbTestPage.class);
 				}
 			}
@@ -61,30 +61,30 @@ public class EditVerbTestPage extends BasePage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				JDutchApplication.getApp().getRepository().save(form.getModelObject());
-				form.setModelObject(new TestPojo());
+				JDutchApplication.getApp().getVerbTestRepository().save(form.getModelObject());
+				form.setModelObject(new VerbTest());
 				
 				target.add(EditVerbTestPage.this);
 			}
 		});
 
-		LoadableDetachableModel<List<TestPojo>> ldm = new LoadableDetachableModel<List<TestPojo>>() {
+		LoadableDetachableModel<List<VerbTest>> ldm = new LoadableDetachableModel<List<VerbTest>>() {
 
 			@Override
-			protected List<TestPojo> load() {
-				List<TestPojo> findAll = JDutchApplication.getApp().getRepository().findAll();
+			protected List<VerbTest> load() {
+				List<VerbTest> findAll = JDutchApplication.getApp().getVerbTestRepository().findAll();
 				
 				LOGGER.info("Retrieving Tests: " + findAll.size());
 				
 				return findAll;
 			}
 		};
-		ListView<TestPojo> tests = new ListView<TestPojo>("tests", ldm) {
+		ListView<VerbTest> tests = new ListView<VerbTest>("tests", ldm) {
 
 			private Component lastTest;
 			
 			@Override
-			protected void populateItem(ListItem<TestPojo> item) {
+			protected void populateItem(ListItem<VerbTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {

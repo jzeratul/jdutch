@@ -8,7 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
-import com.vladv.jdutch.domain.TestRepository;
+import com.vladv.jdutch.domain.GaatenTestRepository;
+import com.vladv.jdutch.domain.VerbTestRepository;
+import com.vladv.jdutch.domain.WordTestRepository;
 import com.vladv.jdutch.pages.ErrorPage;
 import com.vladv.jdutch.pages.HomePage;
 
@@ -19,15 +21,29 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private TestRepository repository;
+	private GaatenTestRepository gaatenTestRepository;
+	
+	@Autowired
+	private VerbTestRepository verbTestRepository;
+
+	@Autowired
+	private WordTestRepository wordTestRepository;
 
 	@Override
 	public Class<? extends Page> getHomePage() {
 		return HomePage.class;
 	}
 
-	public TestRepository getRepository() {
-		return repository;
+	public GaatenTestRepository getGaatenTestRepository() {
+		return gaatenTestRepository;
+	}
+	
+	public VerbTestRepository getVerbTestRepository() {
+		return verbTestRepository;
+	}
+
+	public WordTestRepository getWordTestRepository() {
+		return wordTestRepository;
 	}
 
 	@Override

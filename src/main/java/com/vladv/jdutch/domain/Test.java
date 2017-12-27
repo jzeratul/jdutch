@@ -2,17 +2,12 @@ package com.vladv.jdutch.domain;
 
 import java.io.Serializable;
 
-public class TestPojo implements Serializable {
+public class Test implements Serializable {
 
 	private String id;
 
 	private String testname;
 	private String testcontents;
-
-//	@Override
-//	public String toString() {
-//		return "[" + testname + ":" + testcontents + "]";
-//	}
 
 	public String getTestname() {
 		return testname;

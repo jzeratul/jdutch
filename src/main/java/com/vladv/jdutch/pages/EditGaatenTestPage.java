@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.domain.TestPojo;
+import com.vladv.jdutch.domain.GaatenTest;
 
 @MountPath("/editgaaten")
 public class EditGaatenTestPage extends BasePage {
@@ -32,8 +32,8 @@ public class EditGaatenTestPage extends BasePage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		final CompoundPropertyModel<TestPojo> model = new CompoundPropertyModel<TestPojo>(new TestPojo());
-		Form<TestPojo> form = new Form<TestPojo>("form", model);
+		final CompoundPropertyModel<GaatenTest> model = new CompoundPropertyModel<GaatenTest>(new GaatenTest());
+		Form<GaatenTest> form = new Form<GaatenTest>("form", model);
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
@@ -50,7 +50,7 @@ public class EditGaatenTestPage extends BasePage {
 					this.setModelObject("Are you sure you want to delete this test?");
 					target.add(this);
 				} else {
-					JDutchApplication.getApp().getRepository().deleteTestPojoByTestname(model.getObject().getTestname());
+					JDutchApplication.getApp().getGaatenTestRepository().deleteGaatenTestByTestname(model.getObject().getTestname());
 					setResponsePage(EditGaatenTestPage.class);
 				}
 			}
@@ -61,30 +61,30 @@ public class EditGaatenTestPage extends BasePage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				JDutchApplication.getApp().getRepository().save(form.getModelObject());
-				form.setModelObject(new TestPojo());
+				JDutchApplication.getApp().getGaatenTestRepository().save(form.getModelObject());
+				form.setModelObject(new GaatenTest());
 				
 				target.add(EditGaatenTestPage.this);
 			}
 		});
 
-		LoadableDetachableModel<List<TestPojo>> ldm = new LoadableDetachableModel<List<TestPojo>>() {
+		LoadableDetachableModel<List<GaatenTest>> ldm = new LoadableDetachableModel<List<GaatenTest>>() {
 
 			@Override
-			protected List<TestPojo> load() {
-				List<TestPojo> findAll = JDutchApplication.getApp().getRepository().findAll();
+			protected List<GaatenTest> load() {
+				List<GaatenTest> findAll = JDutchApplication.getApp().getGaatenTestRepository().findAll();
 				
 				LOGGER.info("Retrieving Tests: " + findAll.size());
 				
 				return findAll;
 			}
 		};
-		ListView<TestPojo> tests = new ListView<TestPojo>("tests", ldm) {
+		ListView<GaatenTest> tests = new ListView<GaatenTest>("tests", ldm) {
 
 			private Component lastTest;
 			
 			@Override
-			protected void populateItem(ListItem<TestPojo> item) {
+			protected void populateItem(ListItem<GaatenTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {
