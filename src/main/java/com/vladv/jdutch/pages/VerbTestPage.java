@@ -26,6 +26,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.VerbTest;
+import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/verbs")
 public class VerbTestPage extends BasePage {

@@ -23,6 +23,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.GaatenTest;
+import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editgaaten")
 public class EditGaatenTestPage extends BasePage {

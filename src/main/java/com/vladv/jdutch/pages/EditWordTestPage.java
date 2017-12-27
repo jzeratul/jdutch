@@ -23,6 +23,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.WordTest;
+import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editword")
 public class EditWordTestPage extends BasePage {
