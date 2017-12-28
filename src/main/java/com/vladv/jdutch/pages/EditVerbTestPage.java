@@ -17,8 +17,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
@@ -27,7 +25,8 @@ import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editverb")
 public class EditVerbTestPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditVerbTestPage.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(EditVerbTestPage.class);
 
 	@Override
 	protected void onInitialize() {
@@ -56,15 +55,15 @@ public class EditVerbTestPage extends BasePage {
 				}
 			}
 		});
-		
+
 		form.add(new AjaxButton("save") {
-			
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
 				JDutchApplication.getApp().getVerbTestRepository().save(form.getModelObject());
 				form.setModelObject(new VerbTest());
-				
+
 				target.add(EditVerbTestPage.this);
 			}
 		});
@@ -73,17 +72,13 @@ public class EditVerbTestPage extends BasePage {
 
 			@Override
 			protected List<VerbTest> load() {
-				List<VerbTest> findAll = JDutchApplication.getApp().getVerbTestRepository().findAll();
-				
-				LOGGER.info("Retrieving Tests: " + findAll.size());
-				
-				return findAll;
+				return JDutchApplication.getApp().getVerbTestRepository().findAll();
 			}
 		};
 		ListView<VerbTest> tests = new ListView<VerbTest>("tests", ldm) {
 
 			private Component lastTest;
-			
+
 			@Override
 			protected void populateItem(ListItem<VerbTest> item) {
 
@@ -94,7 +89,7 @@ public class EditVerbTestPage extends BasePage {
 					protected void onEvent(AjaxRequestTarget target) {
 
 						model.setObject(item.getModelObject());
-						
+
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
 							target.add(lastTest);
@@ -105,7 +100,7 @@ public class EditVerbTestPage extends BasePage {
 
 						lastTest = item;
 						target.add(form);
-						
+
 						target.appendJavaScript("prepareSummerNote();");
 					}
 				});

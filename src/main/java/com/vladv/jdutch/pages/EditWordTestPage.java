@@ -17,8 +17,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
@@ -27,7 +25,8 @@ import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editword")
 public class EditWordTestPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditWordTestPage.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(EditWordTestPage.class);
 
 	@Override
 	protected void onInitialize() {
@@ -56,15 +55,18 @@ public class EditWordTestPage extends BasePage {
 				}
 			}
 		});
-		
+
 		form.add(new AjaxButton("save") {
-			
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				JDutchApplication.getApp().getWordTestRepository().save(form.getModelObject());
+				WordTest wordtest = form.getModelObject();
+				// this is to avoid "De vs de and Het vs het" checks
+				wordtest.setTestcontents(wordtest.getTestcontents().toLowerCase());
+				JDutchApplication.getApp().getWordTestRepository().save(wordtest);
 				form.setModelObject(new WordTest());
-				
+
 				target.add(EditWordTestPage.this);
 			}
 		});
@@ -73,17 +75,13 @@ public class EditWordTestPage extends BasePage {
 
 			@Override
 			protected List<WordTest> load() {
-				List<WordTest> findAll = JDutchApplication.getApp().getWordTestRepository().findAll();
-				
-				LOGGER.info("Retrieving Tests: " + findAll.size());
-				
-				return findAll;
+				return JDutchApplication.getApp().getWordTestRepository().findAll();
 			}
 		};
 		ListView<WordTest> tests = new ListView<WordTest>("tests", ldm) {
 
 			private Component lastTest;
-			
+
 			@Override
 			protected void populateItem(ListItem<WordTest> item) {
 
@@ -94,7 +92,7 @@ public class EditWordTestPage extends BasePage {
 					protected void onEvent(AjaxRequestTarget target) {
 
 						model.setObject(item.getModelObject());
-						
+
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
 							target.add(lastTest);
@@ -105,7 +103,7 @@ public class EditWordTestPage extends BasePage {
 
 						lastTest = item;
 						target.add(form);
-						
+
 						target.appendJavaScript("prepareSummerNote();");
 					}
 				});

@@ -17,8 +17,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
@@ -27,7 +25,8 @@ import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editgaaten")
 public class EditGaatenTestPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(EditGaatenTestPage.class);
+	// private static final Logger LOGGER =
+	// LoggerFactory.getLogger(EditGaatenTestPage.class);
 
 	@Override
 	protected void onInitialize() {
@@ -56,15 +55,17 @@ public class EditGaatenTestPage extends BasePage {
 				}
 			}
 		});
-		
+
 		form.add(new AjaxButton("save") {
-			
+
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				JDutchApplication.getApp().getGaatenTestRepository().save(form.getModelObject());
+				GaatenTest gaatentest = form.getModelObject();
+
+				JDutchApplication.getApp().getGaatenTestRepository().save(gaatentest);
 				form.setModelObject(new GaatenTest());
-				
+
 				target.add(EditGaatenTestPage.this);
 			}
 		});
@@ -73,17 +74,13 @@ public class EditGaatenTestPage extends BasePage {
 
 			@Override
 			protected List<GaatenTest> load() {
-				List<GaatenTest> findAll = JDutchApplication.getApp().getGaatenTestRepository().findAll();
-				
-				LOGGER.info("Retrieving Tests: " + findAll.size());
-				
-				return findAll;
+				return JDutchApplication.getApp().getGaatenTestRepository().findAll();
 			}
 		};
 		ListView<GaatenTest> tests = new ListView<GaatenTest>("tests", ldm) {
 
 			private Component lastTest;
-			
+
 			@Override
 			protected void populateItem(ListItem<GaatenTest> item) {
 
@@ -94,7 +91,7 @@ public class EditGaatenTestPage extends BasePage {
 					protected void onEvent(AjaxRequestTarget target) {
 
 						model.setObject(item.getModelObject());
-						
+
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
 							target.add(lastTest);
@@ -105,7 +102,7 @@ public class EditGaatenTestPage extends BasePage {
 
 						lastTest = item;
 						target.add(form);
-						
+
 						target.appendJavaScript("prepareSummerNote();");
 					}
 				});
