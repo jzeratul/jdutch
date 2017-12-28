@@ -130,7 +130,7 @@ public class VerbTestPage extends BasePage {
 					target.add(feedback);
 					target.add(TestPanel.this);
 				}
-				
+
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 					Set<String> parameterNames = requestParameters.getParameterNames();
 					int nrParams = parameterNames.size() - 2; // two params sent from ui are out of scope
@@ -156,7 +156,7 @@ public class VerbTestPage extends BasePage {
 					}
 					results.append(ok + " right and ").append(nok + " wrong.");
 
-					if (nok == 0) {
+					if (nok == 0 && ok == items) {
 						results.append(" You are awesomeeee!!");
 					}
 
