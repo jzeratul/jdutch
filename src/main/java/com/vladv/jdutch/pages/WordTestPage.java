@@ -12,7 +12,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -20,11 +19,13 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.string.StringValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
+import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.WordTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
@@ -62,7 +63,7 @@ public class WordTestPage extends BasePage {
 					protected void onEvent(AjaxRequestTarget target) {
 
 						contents.refresh(target, item.getModelObject().getTestcontents());
-//						target.appendJavaScript("replaceAllBoldElementsWithInput();");  /// todo here
+						target.appendJavaScript("replaceAllDeAndHetWithInput();");
 
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
@@ -104,7 +105,7 @@ public class WordTestPage extends BasePage {
 			contents.setEscapeModelStrings(false);
 			contents.setOutputMarkupId(true);
 
-			final FeedbackPanel feedback = new FeedbackPanel("feedback");
+			final JFeedbackPanel feedback = new JFeedbackPanel("feedback");
 			feedback.setOutputMarkupId(true);
 			feedback.setVisible(false);
 			add(feedback);
@@ -130,23 +131,30 @@ public class WordTestPage extends BasePage {
 					target.add(feedback);
 					target.add(TestPanel.this);
 				}
-				
+
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 					Set<String> parameterNames = requestParameters.getParameterNames();
-					int nrParams = parameterNames.size() - 2; // two params sent from ui are out of scope
 
-					int items = nrParams / 2;
+					// there is one additional item that should not be considered - the submit button
+					int numberOfItems = (parameterNames.size() - 1) / 2;
 
-					StringBuilder results = new StringBuilder("Out of ").append(items).append(" items you got: ");
+					StringBuilder results = new StringBuilder("Out of ").append(numberOfItems).append(" items you got: ");
 
 					int ok = 0;
 					int nok = 0;
-					for (int p = 0; p < items; p++) {
-						// todo
+					for (int p = 0; p < numberOfItems; p++) {
+						StringValue selected = requestParameters.getParameterValue("options" + p);
+						StringValue original = requestParameters.getParameterValue("value" + p);
+
+						if (selected.equals(original)) {
+							ok++;
+						} else {
+							nok++;
+						}
 					}
 					results.append(ok + " right and ").append(nok + " wrong.");
 
-					if (nok == 0) {
+					if (nok == 0 && ok == numberOfItems) {
 						results.append(" You are awesomeeee!!");
 					}
 

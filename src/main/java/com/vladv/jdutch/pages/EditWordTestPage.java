@@ -63,7 +63,9 @@ public class EditWordTestPage extends BasePage {
 
 				WordTest wordtest = form.getModelObject();
 				// this is to avoid "De vs de and Het vs het" checks
-				wordtest.setTestcontents(wordtest.getTestcontents().toLowerCase());
+				if (wordtest.getTestcontents() != null) {
+					wordtest.setTestcontents(wordtest.getTestcontents().toLowerCase());
+				}
 				JDutchApplication.getApp().getWordTestRepository().save(wordtest);
 				form.setModelObject(new WordTest());
 
