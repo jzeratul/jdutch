@@ -12,7 +12,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
@@ -25,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
+import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.GaatenTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
@@ -104,7 +104,7 @@ public class GaatenTestPage extends BasePage {
 			contents.setEscapeModelStrings(false);
 			contents.setOutputMarkupId(true);
 
-			final FeedbackPanel feedback = new FeedbackPanel("feedback");
+			final JFeedbackPanel feedback = new JFeedbackPanel("feedback");
 			feedback.setOutputMarkupId(true);
 			feedback.setVisible(false);
 			add(feedback);
