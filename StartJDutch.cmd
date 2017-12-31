@@ -1,0 +1,1 @@
+docker run -it --rm -p 127.0.0.1:2017:2017 jdutch --spring.data.mongodb.host=192.168.1.101 --spring.data.mongodb.port=27017
