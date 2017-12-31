@@ -23,8 +23,8 @@ import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.WordTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
-@MountPath("/editword")
-public class EditWordTestPage extends BasePage {
+@MountPath("/editarticle")
+public class EditArticleTestPage extends BasePage {
 	// private static final Logger LOGGER =
 	// LoggerFactory.getLogger(EditWordTestPage.class);
 
@@ -51,7 +51,7 @@ public class EditWordTestPage extends BasePage {
 					target.add(this);
 				} else {
 					JDutchApplication.getApp().getWordTestRepository().deleteWordTestByTestname(model.getObject().getTestname());
-					setResponsePage(EditWordTestPage.class);
+					setResponsePage(EditArticleTestPage.class);
 				}
 			}
 		});
@@ -69,7 +69,7 @@ public class EditWordTestPage extends BasePage {
 				JDutchApplication.getApp().getWordTestRepository().save(wordtest);
 				form.setModelObject(new WordTest());
 
-				target.add(EditWordTestPage.this);
+				target.add(EditArticleTestPage.this);
 			}
 		});
 

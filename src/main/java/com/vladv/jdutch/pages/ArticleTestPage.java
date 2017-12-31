@@ -29,9 +29,9 @@ import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.WordTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
-@MountPath("/words")
-public class WordTestPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(WordTestPage.class);
+@MountPath("/article")
+public class ArticleTestPage extends BasePage {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ArticleTestPage.class);
 
 	@Override
 	protected void onInitialize() {

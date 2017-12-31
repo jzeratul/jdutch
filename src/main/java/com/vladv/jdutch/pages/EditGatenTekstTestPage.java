@@ -23,8 +23,8 @@ import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.GaatenTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
-@MountPath("/editgaaten")
-public class EditGaatenTestPage extends BasePage {
+@MountPath("/editgatentekst")
+public class EditGatenTekstTestPage extends BasePage {
 	// private static final Logger LOGGER =
 	// LoggerFactory.getLogger(EditGaatenTestPage.class);
 
@@ -51,7 +51,7 @@ public class EditGaatenTestPage extends BasePage {
 					target.add(this);
 				} else {
 					JDutchApplication.getApp().getGaatenTestRepository().deleteGaatenTestByTestname(model.getObject().getTestname());
-					setResponsePage(EditGaatenTestPage.class);
+					setResponsePage(EditGatenTekstTestPage.class);
 				}
 			}
 		});
@@ -66,7 +66,7 @@ public class EditGaatenTestPage extends BasePage {
 				JDutchApplication.getApp().getGaatenTestRepository().save(gaatentest);
 				form.setModelObject(new GaatenTest());
 
-				target.add(EditGaatenTestPage.this);
+				target.add(EditGatenTekstTestPage.this);
 			}
 		});
 

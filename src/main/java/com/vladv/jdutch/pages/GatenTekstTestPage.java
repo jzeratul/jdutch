@@ -28,9 +28,9 @@ import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.GaatenTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
-@MountPath("/gaaten")
-public class GaatenTestPage extends BasePage {
-	private static final Logger LOGGER = LoggerFactory.getLogger(GaatenTestPage.class);
+@MountPath("/gatentekst")
+public class GatenTekstTestPage extends BasePage {
+	private static final Logger LOGGER = LoggerFactory.getLogger(GatenTekstTestPage.class);
 
 	@Override
 	protected void onInitialize() {
