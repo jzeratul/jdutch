@@ -44,7 +44,7 @@ public class ArticleTestPage extends BasePage {
 
 			@Override
 			protected List<ArticleTest> load() {
-				List<ArticleTest> findAll = JDutchApplication.getApp().getWordTestRepository().findAll();
+				List<ArticleTest> findAll = JDutchApplication.getApp().getArticleTestRepository().findAll();
 				return findAll;
 			}
 		};

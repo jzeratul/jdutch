@@ -50,7 +50,7 @@ public class EditArticleTestPage extends BasePage {
 					this.setModelObject("Are you sure you want to delete this test?");
 					target.add(this);
 				} else {
-					JDutchApplication.getApp().getWordTestRepository().deleteArticleTestByTestname(model.getObject().getTestname());
+					JDutchApplication.getApp().getArticleTestRepository().deleteArticleTestByTestname(model.getObject().getTestname());
 					setResponsePage(EditArticleTestPage.class);
 				}
 			}
@@ -66,7 +66,7 @@ public class EditArticleTestPage extends BasePage {
 				if (wordtest.getTestcontents() != null) {
 					wordtest.setTestcontents(wordtest.getTestcontents().toLowerCase());
 				}
-				JDutchApplication.getApp().getWordTestRepository().save(wordtest);
+				JDutchApplication.getApp().getArticleTestRepository().save(wordtest);
 				form.setModelObject(new ArticleTest());
 
 				target.add(EditArticleTestPage.this);
@@ -77,7 +77,7 @@ public class EditArticleTestPage extends BasePage {
 
 			@Override
 			protected List<ArticleTest> load() {
-				return JDutchApplication.getApp().getWordTestRepository().findAll();
+				return JDutchApplication.getApp().getArticleTestRepository().findAll();
 			}
 		};
 		ListView<ArticleTest> tests = new ListView<ArticleTest>("tests", ldm) {
