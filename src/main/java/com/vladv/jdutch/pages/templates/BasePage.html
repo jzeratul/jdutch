@@ -17,6 +17,26 @@
 <script src="js/jquery-3.2.1.js"></script>
 <script src="js/bootstrap.js"></script>
 
+<script>
+
+// display the active menu
+$(document).ready(function() {
+	
+	var pathname = window.location.pathname;
+	if(pathname.indexOf("gatentekst") !== -1) {
+		$('#topmenu1').attr("class", "active");		
+	} else if(pathname.indexOf("words") !== -1) {
+		$('#topmenu2').attr("class", "active");		
+	} else if(pathname.indexOf("verbs") !== -1) {
+		$('#topmenu3').attr("class", "active");		
+	} if(pathname.indexOf("article") !== -1) {
+		$('#topmenu4').attr("class", "active");		
+	} 
+	
+});
+
+</script>
+
 </head>
 
 <body>
@@ -36,10 +56,10 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="/gatentekst">Gaaten Test</a></li>
-        <li><a href="/words">Words Test</a></li>
-        <li><a href="/verbs">Verbs Test</a></li>
-        <li><a href="/article">Article Test</a></li>
+        <li id="topmenu1"><a href="/gatentekst">GatenTekst Test</a></li>
+        <li id="topmenu2"><a href="/words">Words Test</a></li>
+        <li id="topmenu3"><a href="/verbs">Verbs Test</a></li>
+        <li id="topmenu4"><a href="/article">Article Test</a></li>
       </ul>
     </div>
   </div>
