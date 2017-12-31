@@ -95,6 +95,10 @@ public class WordTestPage extends BasePage {
 		public void refresh(AjaxRequestTarget target, String contents) {
 
 			target.add(this.get("form:contents").setDefaultModelObject(contents));
+			target.add(this.get("form:testtype").setVisible(true));
+			target.add(this.get("form:submittest").setVisible(true));
+			target.add(this.get("feedback").setVisible(false));
+			target.add(this);
 		}
 
 		@Override
@@ -114,7 +118,7 @@ public class WordTestPage extends BasePage {
 					target.appendJavaScript("prepareWordTestPage();");
 				}
 			});
-			
+
 			final Label contents = new Label("contents", Model.of("Select Test"));
 			form.add(contents);
 			contents.setEscapeModelStrings(false);
@@ -139,32 +143,46 @@ public class WordTestPage extends BasePage {
 						info(results);
 						LOGGER.info(results);
 					} catch (Exception e) {
-						error(e.getMessage());
+						if(e.getMessage() == null) {
+							error(e);
+						} else {
+							error(e.getMessage());
+						}
 						LOGGER.error(e.getMessage(), e);
 					}
 					feedback.setVisible(true);
 					target.add(feedback);
+					testtype.setVisible(false);
+					this.setVisible(false);
+					target.add(this);
+					target.add(testtype);
 					target.add(TestPanel.this);
 				}
 
 				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 					Set<String> parameterNames = requestParameters.getParameterNames();
 
-					// there is one additional item that should not be considered - the submit button
-					int numberOfItems = (parameterNames.size() - 1) / 2;
+					// there are two additional items that should not be considered - the submit button and the testtype
+					int numberOfItems = (parameterNames.size() - 2) / 2;
 
 					StringBuilder results = new StringBuilder("Out of ").append(numberOfItems).append(" items you got: ");
 
 					int ok = 0;
 					int nok = 0;
 					for (int p = 0; p < numberOfItems; p++) {
-						StringValue selected = requestParameters.getParameterValue("options" + p);
-						StringValue original = requestParameters.getParameterValue("value" + p);
+						StringValue typed = requestParameters.getParameterValue("element" + p);
+						StringValue original = requestParameters.getParameterValue("element_original" + p);
 
-						if (selected.equals(original)) {
-							ok++;
-						} else {
+						if(typed.isEmpty() || original.isEmpty()) {
 							nok++;
+							LOGGER.error("Null value in element" + p);
+						} else {
+							
+							if (typed.toString().trim().equalsIgnoreCase(original.toString().trim())) {
+								ok++;
+							} else {
+								nok++;
+							}
 						}
 					}
 					results.append(ok + " right and ").append(nok + " wrong.");
@@ -177,7 +195,8 @@ public class WordTestPage extends BasePage {
 				}
 			};
 			submitbutton.setOutputMarkupId(true);
-
+			testtype.setOutputMarkupId(true);
+			
 			form.add(submitbutton);
 
 			add(form);

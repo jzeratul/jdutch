@@ -146,7 +146,7 @@ public class ArticleTestPage extends BasePage {
 						StringValue selected = requestParameters.getParameterValue("options" + p);
 						StringValue original = requestParameters.getParameterValue("value" + p);
 
-						if (selected.equals(original)) {
+						if (selected.toString().trim().equalsIgnoreCase(original.toString().trim())) {
 							ok++;
 						} else {
 							nok++;

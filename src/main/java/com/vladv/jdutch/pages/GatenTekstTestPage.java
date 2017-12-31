@@ -148,7 +148,7 @@ public class GatenTekstTestPage extends BasePage {
 						String paramNewValue = requestParameters.getParameterValue(paramName).toString();
 						String paramOriginalValue = requestParameters.getParameterValue(paramNameOriginal).toString();
 
-						if (paramOriginalValue.equalsIgnoreCase(paramNewValue)) {
+						if (paramOriginalValue.trim().equalsIgnoreCase(paramNewValue.trim())) {
 							ok++;
 						} else {
 							nok++;
