@@ -29,7 +29,7 @@ import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.WordTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
-@MountPath("/word")
+@MountPath("/words")
 public class WordTestPage extends BasePage {
 	private static final Logger LOGGER = LoggerFactory.getLogger(WordTestPage.class);
 
