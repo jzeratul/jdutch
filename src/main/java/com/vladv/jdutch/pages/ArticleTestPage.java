@@ -26,7 +26,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.components.JFeedbackPanel;
-import com.vladv.jdutch.domain.WordTest;
+import com.vladv.jdutch.domain.ArticleTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/article")
@@ -40,21 +40,21 @@ public class ArticleTestPage extends BasePage {
 		TestPanel contents = new TestPanel("switchComponent");
 		add(contents);
 
-		LoadableDetachableModel<List<WordTest>> ldm = new LoadableDetachableModel<List<WordTest>>() {
+		LoadableDetachableModel<List<ArticleTest>> ldm = new LoadableDetachableModel<List<ArticleTest>>() {
 
 			@Override
-			protected List<WordTest> load() {
-				List<WordTest> findAll = JDutchApplication.getApp().getWordTestRepository().findAll();
+			protected List<ArticleTest> load() {
+				List<ArticleTest> findAll = JDutchApplication.getApp().getWordTestRepository().findAll();
 				return findAll;
 			}
 		};
 
-		ListView<WordTest> tests = new ListView<WordTest>("tests", ldm) {
+		ListView<ArticleTest> tests = new ListView<ArticleTest>("tests", ldm) {
 
 			private Component lastTest;
 
 			@Override
-			protected void populateItem(ListItem<WordTest> item) {
+			protected void populateItem(ListItem<ArticleTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {

@@ -20,7 +20,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.domain.WordTest;
+import com.vladv.jdutch.domain.ArticleTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editarticle")
@@ -32,8 +32,8 @@ public class EditArticleTestPage extends BasePage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		final CompoundPropertyModel<WordTest> model = new CompoundPropertyModel<WordTest>(new WordTest());
-		Form<WordTest> form = new Form<WordTest>("form", model);
+		final CompoundPropertyModel<ArticleTest> model = new CompoundPropertyModel<ArticleTest>(new ArticleTest());
+		Form<ArticleTest> form = new Form<ArticleTest>("form", model);
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
@@ -61,31 +61,31 @@ public class EditArticleTestPage extends BasePage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				WordTest wordtest = form.getModelObject();
+				ArticleTest wordtest = form.getModelObject();
 				// this is to avoid "De vs de and Het vs het" checks
 				if (wordtest.getTestcontents() != null) {
 					wordtest.setTestcontents(wordtest.getTestcontents().toLowerCase());
 				}
 				JDutchApplication.getApp().getWordTestRepository().save(wordtest);
-				form.setModelObject(new WordTest());
+				form.setModelObject(new ArticleTest());
 
 				target.add(EditArticleTestPage.this);
 			}
 		});
 
-		LoadableDetachableModel<List<WordTest>> ldm = new LoadableDetachableModel<List<WordTest>>() {
+		LoadableDetachableModel<List<ArticleTest>> ldm = new LoadableDetachableModel<List<ArticleTest>>() {
 
 			@Override
-			protected List<WordTest> load() {
+			protected List<ArticleTest> load() {
 				return JDutchApplication.getApp().getWordTestRepository().findAll();
 			}
 		};
-		ListView<WordTest> tests = new ListView<WordTest>("tests", ldm) {
+		ListView<ArticleTest> tests = new ListView<ArticleTest>("tests", ldm) {
 
 			private Component lastTest;
 
 			@Override
-			protected void populateItem(ListItem<WordTest> item) {
+			protected void populateItem(ListItem<ArticleTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {
