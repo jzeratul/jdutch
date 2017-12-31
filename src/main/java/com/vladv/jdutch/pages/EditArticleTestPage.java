@@ -50,7 +50,7 @@ public class EditArticleTestPage extends BasePage {
 					this.setModelObject("Are you sure you want to delete this test?");
 					target.add(this);
 				} else {
-					JDutchApplication.getApp().getWordTestRepository().deleteWordTestByTestname(model.getObject().getTestname());
+					JDutchApplication.getApp().getWordTestRepository().deleteArticleTestByTestname(model.getObject().getTestname());
 					setResponsePage(EditArticleTestPage.class);
 				}
 			}
