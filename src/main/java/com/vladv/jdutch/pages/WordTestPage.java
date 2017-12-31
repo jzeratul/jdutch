@@ -1,5 +1,6 @@
 package com.vladv.jdutch.pages;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -7,8 +8,10 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -100,6 +103,18 @@ public class WordTestPage extends BasePage {
 
 			Form<String> form = new Form<String>("form", Model.of(""));
 
+			Model<String> testTypeModel = Model.of("NL 2 RO");
+			DropDownChoice<String> testtype = new DropDownChoice<>("testtype", testTypeModel, Model.ofList(Arrays.asList("NL 2 RO", "RO 2 NL")));
+			form.add(testtype);
+			testtype.add(new AjaxFormComponentUpdatingBehavior("change") {
+
+				@Override
+				protected void onUpdate(AjaxRequestTarget target) {
+					target.add(TestPanel.this);
+					target.appendJavaScript("prepareWordTestPage();");
+				}
+			});
+			
 			final Label contents = new Label("contents", Model.of("Select Test"));
 			form.add(contents);
 			contents.setEscapeModelStrings(false);
