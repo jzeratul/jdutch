@@ -1,4 +1,4 @@
-package com.vladv.jdutch.domain;
+package com.vladv.jdutch.articletest;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

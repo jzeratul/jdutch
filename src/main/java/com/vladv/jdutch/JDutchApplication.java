@@ -8,11 +8,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
-import com.vladv.jdutch.domain.ArticleTestRepository;
-import com.vladv.jdutch.domain.GatenTekstTestRepository;
-import com.vladv.jdutch.domain.VerbTestRepository;
-import com.vladv.jdutch.domain.WordTestRepository;
-import com.vladv.jdutch.pages.HomePage;
+import com.vladv.jdutch.articletest.ArticleTestRepository;
+import com.vladv.jdutch.gatentekst.GatenTekstTestRepository;
+import com.vladv.jdutch.home.HomePage;
+import com.vladv.jdutch.verbtest.VerbTestRepository;
+import com.vladv.jdutch.wordtest.WordTestRepository;
 
 @SpringBootApplication
 public class JDutchApplication extends WicketBootStandardWebApplication {

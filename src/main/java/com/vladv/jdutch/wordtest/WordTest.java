@@ -1,4 +1,6 @@
-package com.vladv.jdutch.domain;
+package com.vladv.jdutch.wordtest;
+
+import com.vladv.jdutch.domain.Test;
 
 public class WordTest extends Test {
 

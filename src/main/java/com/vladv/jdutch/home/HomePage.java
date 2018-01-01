@@ -1,4 +1,4 @@
-package com.vladv.jdutch.pages;
+package com.vladv.jdutch.home;
 
 import org.wicketstuff.annotation.mount.MountPath;
 

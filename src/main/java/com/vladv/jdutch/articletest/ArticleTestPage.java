@@ -1,4 +1,4 @@
-package com.vladv.jdutch.pages;
+package com.vladv.jdutch.articletest;
 
 import java.util.List;
 import java.util.Set;
@@ -26,7 +26,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.components.JFeedbackPanel;
-import com.vladv.jdutch.domain.ArticleTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/article")

@@ -5,6 +5,8 @@ prepareWordTestPage = function() {
 	var el = $('#inputform p');
 
 	var testtype = $('#inputform select').find(":selected").text();
+	
+	// the default value is NL 2 RO
 	if(testtype=="RO 2 NL") {
 		var reverse = true
 	}

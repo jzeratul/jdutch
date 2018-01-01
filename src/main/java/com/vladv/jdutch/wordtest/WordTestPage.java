@@ -1,4 +1,4 @@
-package com.vladv.jdutch.pages;
+package com.vladv.jdutch.wordtest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,6 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.components.JFeedbackPanel;
-import com.vladv.jdutch.domain.WordTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/words")

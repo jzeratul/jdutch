@@ -1,4 +1,4 @@
-package com.vladv.jdutch.domain;
+package com.vladv.jdutch.gatentekst;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

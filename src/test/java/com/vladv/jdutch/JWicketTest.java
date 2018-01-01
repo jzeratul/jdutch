@@ -13,14 +13,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.vladv.jdutch.domain.ArticleTest;
-import com.vladv.jdutch.domain.ArticleTestRepository;
-import com.vladv.jdutch.domain.GatenTekstTest;
-import com.vladv.jdutch.domain.GatenTekstTestRepository;
-import com.vladv.jdutch.domain.VerbTest;
-import com.vladv.jdutch.domain.VerbTestRepository;
-import com.vladv.jdutch.domain.WordTest;
-import com.vladv.jdutch.domain.WordTestRepository;
+import com.vladv.jdutch.articletest.ArticleTest;
+import com.vladv.jdutch.articletest.ArticleTestRepository;
+import com.vladv.jdutch.gatentekst.GatenTekstTest;
+import com.vladv.jdutch.gatentekst.GatenTekstTestRepository;
+import com.vladv.jdutch.verbtest.VerbTest;
+import com.vladv.jdutch.verbtest.VerbTestRepository;
+import com.vladv.jdutch.wordtest.WordTest;
+import com.vladv.jdutch.wordtest.WordTestRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JDutchApplication.class)

@@ -1,8 +1,9 @@
-package com.vladv.jdutch.pages;
+package com.vladv.jdutch.wordtest;
 
 import org.junit.Test;
 
 import com.vladv.jdutch.JWicketTest;
+import com.vladv.jdutch.wordtest.EditWordTestPage;
 
 public class EditWordTestPageTest extends JWicketTest {
 

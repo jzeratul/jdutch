@@ -1,4 +1,6 @@
-package com.vladv.jdutch.domain;
+package com.vladv.jdutch.gatentekst;
+
+import com.vladv.jdutch.domain.Test;
 
 public class GatenTekstTest extends Test {
 

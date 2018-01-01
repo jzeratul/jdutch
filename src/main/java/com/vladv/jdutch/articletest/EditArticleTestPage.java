@@ -1,4 +1,4 @@
-package com.vladv.jdutch.pages;
+package com.vladv.jdutch.articletest;
 
 import java.util.List;
 
@@ -20,7 +20,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.domain.ArticleTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editarticle")
