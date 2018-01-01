@@ -65,8 +65,8 @@
 			<version>${wicket.version}</version>
 		</dependency>
 		<dependency>
-	        <groupId>org.mongodb</groupId>
-	        <artifactId>mongo-java-driver</artifactId>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
 		</dependency>
 
 		<dependency>
@@ -119,9 +119,54 @@
 					</archive>
 				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>resource-minifier</id>
+			<build>
+				<plugins>
 
+					<plugin>
+						<groupId>com.samaxes.maven</groupId>
+						<artifactId>minify-maven-plugin</artifactId>
+						<version>1.7.6</version>
+						<executions>
+							<execution>
+								<id>default-minify</id>
+								<phase>package</phase><!-- When omitted defaults to 'process-resources' -->
+								<configuration>
+									<charset>UTF-8</charset>
+									<webappSourceDir>src/main/resources/static</webappSourceDir>
+									<cssSourceDir>css</cssSourceDir>
+									<cssIncludes>
+										<cssInclude>bootstrap.css</cssInclude>
+										<cssInclude>bootstrap-theme.css</cssInclude>
+										<cssInclude>summernote.css</cssInclude>
+										<cssInclude>articletestpage.css</cssInclude>
+										<cssInclude>gaatentestpage.css</cssInclude>
+										<cssInclude>wordtestpage.css</cssInclude>
+									</cssIncludes>
+									<cssFinalFile>style.css</cssFinalFile>
+									<jsSourceDir>js</jsSourceDir>
+									<jsSourceFiles>
+										<jsSourceFile>bootstrap.js</jsSourceFile>
+										<jsSourceFile>jquery-3.2.1.js</jsSourceFile>
+										<jsSourceFile>summernote.js</jsSourceFile>
+									</jsSourceFiles>
+									<jsFinalFile>script.js</jsFinalFile>
+									<jsEngine>CLOSURE</jsEngine>
+
+								</configuration>
+								<goals>
+									<goal>minify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
