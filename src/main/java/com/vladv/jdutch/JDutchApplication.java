@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
 import com.vladv.jdutch.domain.ArticleTestRepository;
-import com.vladv.jdutch.domain.GaatenTestRepository;
+import com.vladv.jdutch.domain.GatenTekstTestRepository;
 import com.vladv.jdutch.domain.VerbTestRepository;
 import com.vladv.jdutch.domain.WordTestRepository;
 import com.vladv.jdutch.pages.HomePage;
@@ -21,7 +21,7 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private GaatenTestRepository gaatenTestRepository;
+	private GatenTekstTestRepository gaatenTestRepository;
 	
 	@Autowired
 	private VerbTestRepository verbTestRepository;
@@ -37,7 +37,7 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 		return HomePage.class;
 	}
 
-	public GaatenTestRepository getGaatenTestRepository() {
+	public GatenTekstTestRepository getGaatenTestRepository() {
 		return gaatenTestRepository;
 	}
 	

@@ -6,7 +6,6 @@ public class BasePage extends WebPage {
 
 	public BasePage() {
 
-		this.setStatelessHint(true);
 		this.setVersioned(false);
 	}
 }

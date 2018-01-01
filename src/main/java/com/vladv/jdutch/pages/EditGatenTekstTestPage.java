@@ -20,7 +20,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.domain.GaatenTest;
+import com.vladv.jdutch.domain.GatenTekstTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/editgatentekst")
@@ -32,8 +32,8 @@ public class EditGatenTekstTestPage extends BasePage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		final CompoundPropertyModel<GaatenTest> model = new CompoundPropertyModel<GaatenTest>(new GaatenTest());
-		Form<GaatenTest> form = new Form<GaatenTest>("form", model);
+		final CompoundPropertyModel<GatenTekstTest> model = new CompoundPropertyModel<GatenTekstTest>(new GatenTekstTest());
+		Form<GatenTekstTest> form = new Form<GatenTekstTest>("form", model);
 
 		form.add(new TextField<String>("testname"));
 		form.add(new TextArea<String>("testcontents"));
@@ -61,28 +61,28 @@ public class EditGatenTekstTestPage extends BasePage {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
 
-				GaatenTest gaatentest = form.getModelObject();
+				GatenTekstTest gaatentest = form.getModelObject();
 
 				JDutchApplication.getApp().getGaatenTestRepository().save(gaatentest);
-				form.setModelObject(new GaatenTest());
+				form.setModelObject(new GatenTekstTest());
 
 				target.add(EditGatenTekstTestPage.this);
 			}
 		});
 
-		LoadableDetachableModel<List<GaatenTest>> ldm = new LoadableDetachableModel<List<GaatenTest>>() {
+		LoadableDetachableModel<List<GatenTekstTest>> ldm = new LoadableDetachableModel<List<GatenTekstTest>>() {
 
 			@Override
-			protected List<GaatenTest> load() {
+			protected List<GatenTekstTest> load() {
 				return JDutchApplication.getApp().getGaatenTestRepository().findAll();
 			}
 		};
-		ListView<GaatenTest> tests = new ListView<GaatenTest>("tests", ldm) {
+		ListView<GatenTekstTest> tests = new ListView<GatenTekstTest>("tests", ldm) {
 
 			private Component lastTest;
 
 			@Override
-			protected void populateItem(ListItem<GaatenTest> item) {
+			protected void populateItem(ListItem<GatenTekstTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {

@@ -9,6 +9,15 @@ public class Test implements Serializable {
 	private String testname;
 	private String testcontents;
 
+	public Test() {
+	}
+	
+	public Test(String testname, String testcontents) {
+		super();
+		this.testname = testname;
+		this.testcontents = testcontents;
+	}
+
 	public String getTestname() {
 		return testname;
 	}

@@ -25,7 +25,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.components.JFeedbackPanel;
-import com.vladv.jdutch.domain.GaatenTest;
+import com.vladv.jdutch.domain.GatenTekstTest;
 import com.vladv.jdutch.pages.templates.BasePage;
 
 @MountPath("/gatentekst")
@@ -39,21 +39,21 @@ public class GatenTekstTestPage extends BasePage {
 		TestPanel contents = new TestPanel("switchComponent");
 		add(contents);
 
-		LoadableDetachableModel<List<GaatenTest>> ldm = new LoadableDetachableModel<List<GaatenTest>>() {
+		LoadableDetachableModel<List<GatenTekstTest>> ldm = new LoadableDetachableModel<List<GatenTekstTest>>() {
 
 			@Override
-			protected List<GaatenTest> load() {
-				List<GaatenTest> findAll = JDutchApplication.getApp().getGaatenTestRepository().findAll();
+			protected List<GatenTekstTest> load() {
+				List<GatenTekstTest> findAll = JDutchApplication.getApp().getGaatenTestRepository().findAll();
 				return findAll;
 			}
 		};
 
-		ListView<GaatenTest> tests = new ListView<GaatenTest>("tests", ldm) {
+		ListView<GatenTekstTest> tests = new ListView<GatenTekstTest>("tests", ldm) {
 
 			private Component lastTest;
 
 			@Override
-			protected void populateItem(ListItem<GaatenTest> item) {
+			protected void populateItem(ListItem<GatenTekstTest> item) {
 
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {
