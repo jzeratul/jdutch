@@ -11,3 +11,6 @@ Technologies used
   5. [Java8](http://www.oracle.com/technetwork/java/javaee/overview/index.html)
   6. [Docker](https://www.docker.com/)
   7. [MongoDB](https://www.mongodb.com/)
+
+Nice to mention tools used
+  1. [minify-maven-plugin](https://github.com/samaxes/minify-maven-plugin)
