@@ -73,10 +73,6 @@ public class EditArticleTestPage extends BasePage {
 				refreshTests(target);
 			}
 		});
-
-		WebMarkupContainer container = new WebMarkupContainer("container");
-		container.setOutputMarkupId(true);
-		add(container);
 		
 		LoadableDetachableModel<List<ArticleTest>> ldm = new LoadableDetachableModel<List<ArticleTest>>() {
 
@@ -117,6 +113,9 @@ public class EditArticleTestPage extends BasePage {
 			}
 		};
 
+		WebMarkupContainer container = new WebMarkupContainer("container");
+		container.setOutputMarkupId(true);
+		add(container);
 		container.add(tests);
 	}
 

@@ -23,8 +23,8 @@ prepareWordTestPage = function() {
 				// there is an additional div enclosing the btn-group but that because of the call of .html() below
 				var strelem = "<div class='form-group'>";
 				strelem = strelem.concat(
-				   "<label class='col-sm-2 control-label'>" + ((reverse) ? elements[1] : elements[0]) + "</label>",
-				   "<div class='col-sm-10'><input type='text' autocomplete='off' name='element" + index + "' class='form-control' /></div>", 
+				   "<label class='col-xs-5 control-label'>" + ((reverse) ? elements[1] : elements[0]) + "</label>",
+				   "<div class='col-xs-4'><input type='text' autocomplete='off' name='element" + index + "' class='form-control col-sm-3' /></div>", 
 				   "<input type='text' autocomplete='off' name='element_original" + index + "' hidden='hidden' value='" + ((reverse) ? elements[0] : elements[1]) + "' />",
 				   "</div>"
 				);
