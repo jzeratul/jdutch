@@ -63,7 +63,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest);
+							target.add(lastTest); // TODO must improve on handling this item
 						}
 
 						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
@@ -98,7 +98,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		add(testcontents);
 		Form<String> form = new Form<String>("form", Model.of(""));
 
-		final Label contents = new Label("contents", Model.of("Select Test"));
+		final Label contents = new Label("contents", Model.of(""));
 		form.add(contents);
 		contents.setEscapeModelStrings(false);
 		contents.setOutputMarkupId(true);
@@ -108,6 +108,8 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		feedback.setVisible(false);
 		testcontents.add(feedback);
 
+		contributeToForm(form);
+		
 		AjaxButton submitbutton = new AjaxButton("submittest") {
 
 			@Override
@@ -135,6 +137,10 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		form.add(submitbutton);
 
 		testcontents.add(form);
+	}
+
+	protected void contributeToForm(Form<String> form) {
+		
 	}
 
 	protected abstract List<T> getTests();

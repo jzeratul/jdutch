@@ -2,120 +2,41 @@ package com.vladv.jdutch.verbtest;
 
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxEventBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.BasePage;
+import com.vladv.jdutch.pages.templates.EditTestPage;
 
 @MountPath("/editverb")
-public class EditVerbTestPage extends BasePage {
-	// private static final Logger LOGGER =
-	// LoggerFactory.getLogger(EditVerbTestPage.class);
+public class EditVerbTestPage extends EditTestPage<VerbTest> {
 
 	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-
-		final CompoundPropertyModel<VerbTest> model = new CompoundPropertyModel<VerbTest>(new VerbTest());
-		Form<VerbTest> form = new Form<VerbTest>("form", model);
-
-		form.add(new TextField<String>("testname"));
-		form.add(new TextArea<String>("testcontents"));
-		form.setOutputMarkupId(true);
-		add(form);
-
-		form.add(new AjaxButton("delete", Model.of("Delete")) {
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-				super.onSubmit(target);
-
-				if(this.getModelObject().equals("Delete")) {
-					this.setModelObject("Are you sure you want to delete this test?");
-					target.add(this);
-				} else {
-					JDutchApplication.getApp().getVerbTestRepository().deleteVerbTestByTestname(model.getObject().getTestname());
-					setResponsePage(EditVerbTestPage.class);
-				}
-			}
-		});
-
-		form.add(new AjaxButton("save") {
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-
-				JDutchApplication.getApp().getVerbTestRepository().save(form.getModelObject());
-				form.setModelObject(new VerbTest());
-
-				target.add(form);
-				refreshTests(target);
-			}
-		});
-
-		WebMarkupContainer container = new WebMarkupContainer("container");
-		container.setOutputMarkupId(true);
-		add(container);
-
-		LoadableDetachableModel<List<VerbTest>> ldm = new LoadableDetachableModel<List<VerbTest>>() {
-
-			@Override
-			protected List<VerbTest> load() {
-				return JDutchApplication.getApp().getVerbTestRepository().findAll();
-			}
-		};
-		ListView<VerbTest> tests = new ListView<VerbTest>("tests", ldm) {
-
-			private Component lastTest;
-
-			@Override
-			protected void populateItem(ListItem<VerbTest> item) {
-
-				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
-				item.add(new AjaxEventBehavior("click") {
-
-					@Override
-					protected void onEvent(AjaxRequestTarget target) {
-
-						model.setObject(item.getModelObject());
-
-						if (lastTest != null) {
-							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest);
-						}
-
-						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
-						target.add(item);
-
-						lastTest = item;
-						target.add(form);
-
-						target.appendJavaScript("prepareSummerNote();");
-					}
-				});
-			}
-		};
-
-		container.add(tests);
+	protected String getTestHelpMessage() {
+		return "some hits here";
 	}
 
-	protected void refreshTests(AjaxRequestTarget target) {
-		target.add(get("container"));
+	@Override
+	protected VerbTest getNewObject() {
+		return new VerbTest();
+	}
+
+	@Override
+	protected void saveTest(VerbTest test) {
+		JDutchApplication.getApp().getVerbTestRepository().save(test);
+	}
+
+	@Override
+	protected void deleteTest(String testname) {
+		JDutchApplication.getApp().getVerbTestRepository().deleteVerbTestByTestname(testname);
+	}
+
+	@Override
+	protected List<VerbTest> getTests() {
+		return JDutchApplication.getAllVerbs();
+	}
+
+	@Override
+	protected Class<? extends EditTestPage<?>> getEditPageClass() {
+		return EditVerbTestPage.class;
 	}
 }
