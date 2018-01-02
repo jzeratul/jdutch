@@ -7,6 +7,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -63,9 +64,14 @@ public class EditVerbTestPage extends BasePage {
 				JDutchApplication.getApp().getVerbTestRepository().save(form.getModelObject());
 				form.setModelObject(new VerbTest());
 
-				target.add(EditVerbTestPage.this);
+				target.add(form);
+				refreshTests(target);
 			}
 		});
+
+		WebMarkupContainer container = new WebMarkupContainer("container");
+		container.setOutputMarkupId(true);
+		add(container);
 
 		LoadableDetachableModel<List<VerbTest>> ldm = new LoadableDetachableModel<List<VerbTest>>() {
 
@@ -106,6 +112,10 @@ public class EditVerbTestPage extends BasePage {
 			}
 		};
 
-		add(tests);
+		container.add(tests);
+	}
+
+	protected void refreshTests(AjaxRequestTarget target) {
+		target.add(get("container"));
 	}
 }

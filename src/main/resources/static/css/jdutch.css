@@ -1,4 +1,8 @@
 .scroll {
-	height: 300px;
+	height: 100%;
 	overflow: scroll;
+}
+
+@media screen and (min-width: 480px) {
+	height: 300px;
 }
