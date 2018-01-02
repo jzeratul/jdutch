@@ -3,7 +3,6 @@ package com.vladv.jdutch.pages.templates;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -24,8 +23,6 @@ import com.vladv.jdutch.domain.Test;
 
 public abstract class EditTestPage<T extends Test> extends BasePage {
 
-	private Component lastTest; // TODO must improve on handling this item
-	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -57,7 +54,6 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 					form.setModelObject(getNewObject());
 					this.setModelObject("Delete");
 					target.add(getPage());
-					lastTest = null; // TODO must improve on handling this item
 				}
 			}
 		});
@@ -78,7 +74,6 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 				form.setModelObject(getNewObject());
 				target.add(form);
 				reloadTests(target);
-				lastTest = null; // TODO must improve on handling this item
 			}
 		});
 		
@@ -102,16 +97,11 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 
 						model.setObject(item.getModelObject());
 
-						if (lastTest != null) {
-							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest); // TODO must improve on handling this item
-						}
-
 						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
 						target.add(item);
-
-						lastTest = item;
 						target.add(form);
+						
+						highlightSelection(item.getMarkupId(), target);
 
 						target.appendJavaScript("prepareSummerNote();");
 					}
@@ -130,6 +120,11 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 				setResponsePage(getEditPageClass());
 			}
 		});
+	}
+
+	private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
+		String js = String.format("makeActiveThisElement('#%s', '#%s a');", itemMarkupId, get("testslist").getMarkupId());
+		target.appendJavaScript(js);
 	}
 
 	protected void reloadTests(AjaxRequestTarget target) {

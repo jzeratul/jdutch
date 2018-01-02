@@ -2,8 +2,6 @@ package com.vladv.jdutch.pages.templates;
 
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -47,11 +45,9 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 		ListView<T> tests = new ListView<T>("tests", ldm) {
 
-			private Component lastTest; // TODO must improve on handling this item
-
 			@Override
 			protected void populateItem(ListItem<T> item) {
-
+				
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {
 
@@ -61,15 +57,9 @@ public abstract class TestPage<T extends Test> extends BasePage {
 						refresh(target, item.getModelObject().getTestcontents());
 						target.appendJavaScript(appendJavascriptOnTestClick());
 
-						if (lastTest != null) {
-							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest); // TODO must improve on handling this item
-						}
-
-						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
+						highlightSelection(item.getMarkupId(), target);
+						
 						target.add(item);
-
-						lastTest = item;
 					}
 				});
 			}
@@ -86,6 +76,11 @@ public abstract class TestPage<T extends Test> extends BasePage {
 				setResponsePage(getEditPageClass());
 			}
 		});
+	}
+
+	private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
+		String js = String.format("makeActiveThisElement('#%s', '#%s a');", itemMarkupId, get("testslist").getMarkupId());
+		target.appendJavaScript(js);
 	}
 
 	public void refresh(AjaxRequestTarget target, String contents) {
