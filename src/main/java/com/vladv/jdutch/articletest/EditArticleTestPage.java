@@ -5,6 +5,7 @@ import java.util.List;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
+import com.vladv.jdutch.pages.templates.EditTestPage;
 
 @MountPath("/editarticle")
 public class EditArticleTestPage extends EditTestPage<ArticleTest> {

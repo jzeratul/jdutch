@@ -22,7 +22,6 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vladv.jdutch.articletest.EditTestPage;
 import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.Test;
 

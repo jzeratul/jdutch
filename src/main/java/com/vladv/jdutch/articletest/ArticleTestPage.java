@@ -8,6 +8,7 @@ import org.apache.wicket.util.string.StringValue;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
+import com.vladv.jdutch.pages.templates.EditTestPage;
 import com.vladv.jdutch.pages.templates.TestPage;
 
 @MountPath("/article")

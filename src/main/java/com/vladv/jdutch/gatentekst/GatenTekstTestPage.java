@@ -7,7 +7,7 @@ import org.apache.wicket.request.IRequestParameters;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.articletest.EditTestPage;
+import com.vladv.jdutch.pages.templates.EditTestPage;
 import com.vladv.jdutch.pages.templates.TestPage;
 
 @MountPath("/gatentekst")

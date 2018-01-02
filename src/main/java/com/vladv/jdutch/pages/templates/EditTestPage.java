@@ -1,4 +1,4 @@
-package com.vladv.jdutch.articletest;
+package com.vladv.jdutch.pages.templates;
 
 import java.util.List;
 
@@ -21,7 +21,6 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import com.vladv.jdutch.domain.Test;
-import com.vladv.jdutch.pages.templates.BasePage;
 
 public abstract class EditTestPage<T extends Test> extends BasePage {
 
