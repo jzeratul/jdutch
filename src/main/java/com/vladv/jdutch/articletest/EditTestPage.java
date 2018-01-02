@@ -125,7 +125,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 		add(testslist);
 		testslist.add(tests);
 		
-		testslist.add(new AjaxLink<Void>("editlink") {
+		testslist.add(new AjaxLink<Void>("edittest") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				setResponsePage(getEditPageClass());

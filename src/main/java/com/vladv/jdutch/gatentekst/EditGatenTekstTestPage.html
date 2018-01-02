@@ -1,42 +1,7 @@
 <wicket:head xmlns:wicket="http://wicket.apache.org">
 
-  <link href="css/summernote.css" rel="stylesheet">
-  <script src="js/summernote.js"></script>
-  <script src="js/summernotewicket.js"></script>
-
 </wicket:head>
 
 <wicket:extend xmlns:wicket="http://wicket.apache.org">
 
-  <div class="row">
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-    <div class="list-group scroll" wicket:id="container">
-      <a class="list-group-item list-group-item-action" href="editgatentekst" style="cursor: pointer;">New Test</a>
-      <a class="list-group-item list-group-item-action" wicket:id="tests" style="cursor: pointer;">
-        <span wicket:id="name"></span>
-      </a>
-    </div>
-    </div>
-    <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
-
-      <form wicket:id="form">
-        <div class="form-group">
-          <label for="testname">Test Name</label> 
-          <input type="text" class="form-control" id="testname" wicket:id="testname" autocomplete="off" placeholder="Enter the name of the test">
-        </div>
-        <div class="form-group">
-          <label for="summernote">Test Contents</label>
-          <p>Input text and set to bold all the words that you want to be hidden in the test.</p>
-          <p>If the text is copied form office/internet than the text style is already set so make sure you select all the text and then hit the rubber button.
-          Then proceed with making the desired words bold.</p>
-          <div id="summernote"></div>
-        </div>
-        <textarea wicket:id="testcontents" hidden="hidden" id="htc"></textarea>
-        <button type="submit" class="btn btn-primary" wicket:id="save" onclick="adaptForm()">Submit</button>
-        <button type="button" class="btn btn-danger" wicket:id="delete">Delete</button>
-      </form>
-      
-    </div>
-  </div>
-  
 </wicket:extend>

@@ -24,6 +24,11 @@ public class ArticleTestPage extends TestPage<ArticleTest> {
 	}
 
 	@Override
+	protected Class<? extends EditTestPage<?>> getEditPageClass() {
+		return EditArticleTestPage.class;
+	}
+
+	@Override
 	protected String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
 		Set<String> parameterNames = requestParameters.getParameterNames();
 

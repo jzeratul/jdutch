@@ -6,6 +6,7 @@ import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -21,6 +22,7 @@ import org.apache.wicket.request.cycle.RequestCycle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vladv.jdutch.articletest.EditTestPage;
 import com.vladv.jdutch.components.JFeedbackPanel;
 import com.vladv.jdutch.domain.Test;
 
@@ -34,11 +36,6 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		addTestsList();
 		addTestContents();
 	}
-
-	protected abstract List<T> getTests();
-	protected abstract String takeTest(String obj, IRequestParameters requestParameters) throws Exception;
-	protected abstract String appendJavascriptOnTestClick();
-
 	
 	private void addTestsList() {
 		LoadableDetachableModel<List<T>> ldm = new LoadableDetachableModel<List<T>>() {
@@ -83,6 +80,13 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		testslist.setOutputMarkupId(true);
 		testslist.add(tests);
 		add(testslist);
+		
+		testslist.add(new AjaxLink<Void>("edittest") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				setResponsePage(getEditPageClass());
+			}
+		});
 	}
 
 	public void refresh(AjaxRequestTarget target, String contents) {
@@ -133,4 +137,9 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 		testcontents.add(form);
 	}
+
+	protected abstract List<T> getTests();
+	protected abstract String takeTest(String obj, IRequestParameters requestParameters) throws Exception;
+	protected abstract String appendJavascriptOnTestClick();
+	protected abstract Class<? extends EditTestPage<?>> getEditPageClass();
 }

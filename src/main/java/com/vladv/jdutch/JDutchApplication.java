@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
 import com.vladv.jdutch.articletest.ArticleTest;
 import com.vladv.jdutch.articletest.ArticleTestRepository;
+import com.vladv.jdutch.gatentekst.GatenTekstTest;
 import com.vladv.jdutch.gatentekst.GatenTekstTestRepository;
 import com.vladv.jdutch.home.HomePage;
 import com.vladv.jdutch.verbtest.VerbTestRepository;
@@ -73,5 +74,9 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 
 	public static List<ArticleTest> getAllArticles() {
 		return JDutchApplication.getApp().getArticleTestRepository().findAll();
+	}
+
+	public static List<GatenTekstTest> getAllGatenTeksts() {
+		return JDutchApplication.getApp().getGaatenTestRepository().findAll();
 	}
 }

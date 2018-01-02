@@ -2,122 +2,44 @@ package com.vladv.jdutch.gatentekst;
 
 import java.util.List;
 
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxEventBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.BasePage;
+import com.vladv.jdutch.articletest.EditTestPage;
 
 @MountPath("/editgatentekst")
-public class EditGatenTekstTestPage extends BasePage {
-	// private static final Logger LOGGER =
-	// LoggerFactory.getLogger(EditGaatenTestPage.class);
+public class EditGatenTekstTestPage extends EditTestPage<GatenTekstTest> {
 
 	@Override
-	protected void onInitialize() {
-		super.onInitialize();
-
-		final CompoundPropertyModel<GatenTekstTest> model = new CompoundPropertyModel<GatenTekstTest>(new GatenTekstTest());
-		Form<GatenTekstTest> form = new Form<GatenTekstTest>("form", model);
-
-		form.add(new TextField<String>("testname"));
-		form.add(new TextArea<String>("testcontents"));
-		form.setOutputMarkupId(true);
-		add(form);
-
-		form.add(new AjaxButton("delete", Model.of("Delete")) {
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-				super.onSubmit(target);
-
-				if(this.getModelObject().equals("Delete")) {
-					this.setModelObject("Are you sure you want to delete this test?");
-					target.add(this);
-				} else {
-					JDutchApplication.getApp().getGaatenTestRepository().deleteGaatenTestByTestname(model.getObject().getTestname());
-					setResponsePage(EditGatenTekstTestPage.class);
-				}
-			}
-		});
-
-		form.add(new AjaxButton("save") {
-
-			@Override
-			protected void onSubmit(AjaxRequestTarget target) {
-
-				GatenTekstTest gaatentest = form.getModelObject();
-
-				JDutchApplication.getApp().getGaatenTestRepository().save(gaatentest);
-				form.setModelObject(new GatenTekstTest());
-
-				target.add(form);
-				refreshTests(target);
-			}
-		});
-
-		WebMarkupContainer container = new WebMarkupContainer("container");
-		container.setOutputMarkupId(true);
-		add(container);
-		
-		LoadableDetachableModel<List<GatenTekstTest>> ldm = new LoadableDetachableModel<List<GatenTekstTest>>() {
-
-			@Override
-			protected List<GatenTekstTest> load() {
-				return JDutchApplication.getApp().getGaatenTestRepository().findAll();
-			}
-		};
-		ListView<GatenTekstTest> tests = new ListView<GatenTekstTest>("tests", ldm) {
-
-			private Component lastTest;
-
-			@Override
-			protected void populateItem(ListItem<GatenTekstTest> item) {
-
-				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
-				item.add(new AjaxEventBehavior("click") {
-
-					@Override
-					protected void onEvent(AjaxRequestTarget target) {
-
-						model.setObject(item.getModelObject());
-
-						if (lastTest != null) {
-							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest);
-						}
-
-						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
-						target.add(item);
-
-						lastTest = item;
-						target.add(form);
-
-						target.appendJavaScript("prepareSummerNote();");
-					}
-				});
-			}
-		};
-
-		container.add(tests);
+	protected String getTestHelpMessage() {
+		return "Input text and set to bold all the words that you want to be hidden in the test.<br/>\r\n" + 
+				"   If the text is copied form office/internet than the text style is already set so make sure you select all the text and then hit the rubber button.<br/>\r\n" + 
+				"   Then proceed with making the desired words bold.";
 	}
 
-	protected void refreshTests(AjaxRequestTarget target) {
-		target.add(get("container"));
+	@Override
+	protected GatenTekstTest getNewObject() {
+		return new GatenTekstTest();
 	}
+
+	@Override
+	protected void saveTest(GatenTekstTest test) {
+		JDutchApplication.getApp().getGaatenTestRepository().save(test);
+	}
+
+	@Override
+	protected void deleteTest(String testname) {
+		JDutchApplication.getApp().getGaatenTestRepository().deleteGaatenTestByTestname(testname);
+	}
+
+	@Override
+	protected List<GatenTekstTest> getTests() {
+		return JDutchApplication.getAllGatenTeksts();
+	}
+
+	@Override
+	protected Class<? extends EditTestPage<?>> getEditPageClass() {
+		return EditGatenTekstTestPage.class;
+	}
+
 }
