@@ -14,3 +14,7 @@ Technologies used
 
 Nice to mention tools used
   1. [minify-maven-plugin](https://github.com/samaxes/minify-maven-plugin)
+
+# License
+Apache 2: https://www.apache.org/licenses/LICENSE-2.0
+
