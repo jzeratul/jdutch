@@ -1,5 +1,7 @@
 package com.vladv.jdutch;
 
+import java.util.List;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import com.giffing.wicket.spring.boot.starter.app.WicketBootStandardWebApplication;
+import com.vladv.jdutch.articletest.ArticleTest;
 import com.vladv.jdutch.articletest.ArticleTestRepository;
 import com.vladv.jdutch.gatentekst.GatenTekstTestRepository;
 import com.vladv.jdutch.home.HomePage;
@@ -66,5 +69,9 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JDutchApplication.class, args);
+	}
+
+	public static List<ArticleTest> getAllArticles() {
+		return JDutchApplication.getApp().getArticleTestRepository().findAll();
 	}
 }

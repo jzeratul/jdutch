@@ -13,7 +13,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -37,15 +36,16 @@ public class ArticleTestPage extends BasePage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		TestPanel contents = new TestPanel("switchComponent");
-		add(contents);
+		addTestsList();
+		addTestContents();
+	}
 
+	private void addTestsList() {
 		LoadableDetachableModel<List<ArticleTest>> ldm = new LoadableDetachableModel<List<ArticleTest>>() {
 
 			@Override
 			protected List<ArticleTest> load() {
-				List<ArticleTest> findAll = JDutchApplication.getApp().getArticleTestRepository().findAll();
-				return findAll;
+				return JDutchApplication.getAllArticles();
 			}
 		};
 
@@ -62,7 +62,7 @@ public class ArticleTestPage extends BasePage {
 					@Override
 					protected void onEvent(AjaxRequestTarget target) {
 
-						contents.refresh(target, item.getModelObject().getTestcontents());
+						refresh(target, item.getModelObject().getTestcontents());
 						target.appendJavaScript("replaceAllDeAndHetWithInput();");
 
 						if (lastTest != null) {
@@ -79,97 +79,87 @@ public class ArticleTestPage extends BasePage {
 			}
 		};
 
-		WebMarkupContainer container = new WebMarkupContainer("container");
-		container.setOutputMarkupId(true);
-		add(container);
-		container.add(tests);
+		WebMarkupContainer testslist = new WebMarkupContainer("testslist");
+		testslist.setOutputMarkupId(true);
+		testslist.add(tests);
+		add(testslist);
 	}
 
-	private static final class TestPanel extends Panel {
+	public void refresh(AjaxRequestTarget target, String contents) {
 
-		public TestPanel(final String id) {
-			super(id);
+		target.add(this.get("testcontents:form:contents").setDefaultModelObject(contents));
+	}
 
-			this.setOutputMarkupId(true);
-		}
+	private void addTestContents() {
+		WebMarkupContainer testcontents = new WebMarkupContainer("testcontents");
+		add(testcontents);
+		Form<String> form = new Form<String>("form", Model.of(""));
 
-		public void refresh(AjaxRequestTarget target, String contents) {
+		final Label contents = new Label("contents", Model.of("Select Test"));
+		form.add(contents);
+		contents.setEscapeModelStrings(false);
+		contents.setOutputMarkupId(true);
 
-			target.add(this.get("form:contents").setDefaultModelObject(contents));
-		}
+		final JFeedbackPanel feedback = new JFeedbackPanel("feedback");
+		feedback.setOutputMarkupId(true);
+		feedback.setVisible(false);
+		testcontents.add(feedback);
 
-		@Override
-		protected void onInitialize() {
-			super.onInitialize();
+		AjaxButton submitbutton = new AjaxButton("submittest") {
 
-			Form<String> form = new Form<String>("form", Model.of(""));
+			@Override
+			protected void onSubmit(AjaxRequestTarget target) {
+				super.onSubmit(target);
 
-			final Label contents = new Label("contents", Model.of("Select Test"));
-			form.add(contents);
-			contents.setEscapeModelStrings(false);
-			contents.setOutputMarkupId(true);
+				Request request = RequestCycle.get().getRequest();
+				IRequestParameters requestParameters = request.getRequestParameters();
 
-			final JFeedbackPanel feedback = new JFeedbackPanel("feedback");
-			feedback.setOutputMarkupId(true);
-			feedback.setVisible(false);
-			add(feedback);
+				try {
+					String results = takeTest(contents.getDefaultModelObjectAsString(), requestParameters);
+					info(results);
+					LOGGER.info(results);
+				} catch (Exception e) {
+					error(e.getMessage());
+					LOGGER.error(e.getMessage(), e);
+				}
+				feedback.setVisible(true);
+				target.add(feedback);
+				target.add(ArticleTestPage.this);
+			}
 
-			AjaxButton submitbutton = new AjaxButton("submittest") {
+			private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
+				Set<String> parameterNames = requestParameters.getParameterNames();
 
-				@Override
-				protected void onSubmit(AjaxRequestTarget target) {
-					super.onSubmit(target);
+				// there is one additional item that should not be considered - the submit button
+				int numberOfItems = (parameterNames.size() - 1) / 2;
 
-					Request request = RequestCycle.get().getRequest();
-					IRequestParameters requestParameters = request.getRequestParameters();
+				StringBuilder results = new StringBuilder("Out of ").append(numberOfItems).append(" items you got: ");
 
-					try {
-						String results = takeTest(contents.getDefaultModelObjectAsString(), requestParameters);
-						info(results);
-						LOGGER.info(results);
-					} catch (Exception e) {
-						error(e.getMessage());
-						LOGGER.error(e.getMessage(), e);
+				int ok = 0;
+				int nok = 0;
+				for (int p = 0; p < numberOfItems; p++) {
+					StringValue selected = requestParameters.getParameterValue("options" + p);
+					StringValue original = requestParameters.getParameterValue("value" + p);
+
+					if (selected.toString().trim().equalsIgnoreCase(original.toString().trim())) {
+						ok++;
+					} else {
+						nok++;
 					}
-					feedback.setVisible(true);
-					target.add(feedback);
-					target.add(TestPanel.this);
+				}
+				results.append(ok + " right and ").append(nok + " wrong.");
+
+				if (nok == 0 && ok == numberOfItems) {
+					results.append(" You are awesomeeee!!");
 				}
 
-				private String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
-					Set<String> parameterNames = requestParameters.getParameterNames();
+				return results.toString();
+			}
+		};
+		submitbutton.setOutputMarkupId(true);
 
-					// there is one additional item that should not be considered - the submit button
-					int numberOfItems = (parameterNames.size() - 1) / 2;
+		form.add(submitbutton);
 
-					StringBuilder results = new StringBuilder("Out of ").append(numberOfItems).append(" items you got: ");
-
-					int ok = 0;
-					int nok = 0;
-					for (int p = 0; p < numberOfItems; p++) {
-						StringValue selected = requestParameters.getParameterValue("options" + p);
-						StringValue original = requestParameters.getParameterValue("value" + p);
-
-						if (selected.toString().trim().equalsIgnoreCase(original.toString().trim())) {
-							ok++;
-						} else {
-							nok++;
-						}
-					}
-					results.append(ok + " right and ").append(nok + " wrong.");
-
-					if (nok == 0 && ok == numberOfItems) {
-						results.append(" You are awesomeeee!!");
-					}
-
-					return results.toString();
-				}
-			};
-			submitbutton.setOutputMarkupId(true);
-
-			form.add(submitbutton);
-
-			add(form);
-		}
+		testcontents.add(form);
 	}
 }
