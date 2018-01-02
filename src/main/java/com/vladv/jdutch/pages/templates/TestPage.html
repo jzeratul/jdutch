@@ -1,0 +1,28 @@
+<wicket:head xmlns:wicket="http://wicket.apache.org">
+
+</wicket:head>
+
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+
+  <div class="row">
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 scroll">
+      <div class="list-group scroll" wicket:id="testslist">
+        <a class="list-group-item list-group-item-action" href="editarticle" style="cursor: pointer;">New/Edit Test</a> 
+        <a class="list-group-item list-group-item-action" wicket:id="tests" style="cursor: pointer;"> <span wicket:id="name"></span></a>
+      </div>
+    </div>
+    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12" wicket:id="testcontents">
+    
+      <div wicket:id="feedback"></div>
+      <form wicket:id="form" id="inputform">
+        <div wicket:id="contents" class="innerinput"></div> <br />
+        <button type="submit" class="btn btn-warning" wicket:id="submittest">Submit</button>
+    
+      </form>
+      
+      <wicket:child />      
+
+    </div>
+  </div>
+
+</wicket:extend>
