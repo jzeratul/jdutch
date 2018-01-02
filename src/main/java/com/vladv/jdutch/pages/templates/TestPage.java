@@ -47,7 +47,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 		ListView<T> tests = new ListView<T>("tests", ldm) {
 
-			private Component lastTest;
+			private Component lastTest; // TODO must improve on handling this item
 
 			@Override
 			protected void populateItem(ListItem<T> item) {
@@ -110,7 +110,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 		contributeToForm(form);
 		
-		AjaxButton submitbutton = new AjaxButton("submittest") {
+		AjaxButton submittest = new AjaxButton("submittest") {
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target) {
@@ -132,9 +132,8 @@ public abstract class TestPage<T extends Test> extends BasePage {
 				target.add(getPage());
 			}
 		};
-		submitbutton.setOutputMarkupId(true);
-
-		form.add(submitbutton);
+		submittest.setOutputMarkupId(true);
+		form.add(submittest);
 
 		testcontents.add(form);
 	}

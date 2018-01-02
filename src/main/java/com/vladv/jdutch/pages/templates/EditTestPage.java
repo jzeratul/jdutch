@@ -24,7 +24,7 @@ import com.vladv.jdutch.domain.Test;
 
 public abstract class EditTestPage<T extends Test> extends BasePage {
 
-	private Component lastTest;
+	private Component lastTest; // TODO must improve on handling this item
 	
 	@Override
 	protected void onInitialize() {
@@ -57,7 +57,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 					form.setModelObject(getNewObject());
 					this.setModelObject("Delete");
 					target.add(getPage());
-					lastTest = null;
+					lastTest = null; // TODO must improve on handling this item
 				}
 			}
 		});
@@ -78,7 +78,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 				form.setModelObject(getNewObject());
 				target.add(form);
 				reloadTests(target);
-				lastTest = null;
+				lastTest = null; // TODO must improve on handling this item
 			}
 		});
 		
@@ -104,7 +104,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 
 						if (lastTest != null) {
 							lastTest.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action")));
-							target.add(lastTest);
+							target.add(lastTest); // TODO must improve on handling this item
 						}
 
 						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
