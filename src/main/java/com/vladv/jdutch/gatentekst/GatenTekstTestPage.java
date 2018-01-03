@@ -5,7 +5,6 @@ import java.util.List;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.EditTestPage;
 import com.vladv.jdutch.pages.templates.TestPage;
 
 @MountPath("/gatentekst")
@@ -19,10 +18,5 @@ public class GatenTekstTestPage extends TestPage<GatenTekstTest> {
 	@Override
 	protected String appendJavascriptOnTestClick() {
 		return "replaceAllBoldElementsWithInput();";
-	}
-
-	@Override
-	protected Class<? extends EditTestPage<?>> getEditPageClass() {
-		return EditGatenTekstTestPage.class;
 	}
 }

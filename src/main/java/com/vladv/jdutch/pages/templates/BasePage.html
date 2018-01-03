@@ -26,15 +26,13 @@
 $(document).ready(function() {
 	
 	var pathname = window.location.pathname;
-	if(pathname.indexOf("gatentekst") !== -1) {
+	if(pathname.indexOf("gatentekst") !== -1 || pathname.indexOf("editgatentekst") !== -1) {
 		$('#topmenu1').attr("class", "active");		
-	} else if(pathname.indexOf("words") !== -1) {
+	} else if(pathname.indexOf("words") !== -1 || pathname.indexOf("editword") !== -1) {
 		$('#topmenu2').attr("class", "active");		
-	} else if(pathname.indexOf("verbs") !== -1) {
+	} else if(pathname.indexOf("article") !== -1 || pathname.indexOf("editarticle") !== -1) {
 		$('#topmenu3').attr("class", "active");		
-	} if(pathname.indexOf("article") !== -1) {
-		$('#topmenu4').attr("class", "active");		
-	} 
+	}
 	
 });
 
@@ -58,12 +56,27 @@ $(document).ready(function() {
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li id="topmenu1"><a href="/gatentekst">GatenTekst Test</a></li>
-        <li id="topmenu2"><a href="/words">Words Test</a></li>
-        <!-- <li id="topmenu3"><a href="/verbs">Verbs Test</a></li> -->
-        <li id="topmenu4"><a href="/article">Article Test</a></li>
-      </ul>
+
+        <ul class="nav navbar-nav">
+          <li id="topmenu1" class="dropdown">
+            <a href="#" class="dropdown-toggle" id="drop1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> GatenTekst Test <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="drop1">
+              <li><a href="/gatentekst"> >>Test</a></li>
+              <li><a href="/editgatentekst"> >>Edit/New</a></li>
+            </ul></li>
+          <li id="topmenu2" class="dropdown">
+            <a href="#" class="dropdown-toggle" id="drop1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Words Test <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="drop1">
+              <li><a href="/words"> >>Test</a></li>
+              <li><a href="/editword"> >>Edit/New</a></li>
+            </ul></li>
+          <li id="topmenu3" class="dropdown">
+            <a href="#" class="dropdown-toggle" id="drop1" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> De/Het Test <span class="caret"></span></a>
+            <ul class="dropdown-menu" aria-labelledby="drop1">
+              <li><a href="/article"> >>Test</a></li>
+              <li><a href="/editarticle"> >>Edit/New</a></li>
+            </ul></li>
+        </ul>
     </div>
   </div>
 </nav>

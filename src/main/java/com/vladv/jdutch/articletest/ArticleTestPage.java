@@ -5,7 +5,6 @@ import java.util.List;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.EditTestPage;
 import com.vladv.jdutch.pages.templates.TestPage;
 
 @MountPath("/article")
@@ -19,10 +18,5 @@ public class ArticleTestPage extends TestPage<ArticleTest> {
 	@Override
 	protected String appendJavascriptOnTestClick() {
 		return "replaceAllDeAndHetWithInput();";
-	}
-
-	@Override
-	protected Class<? extends EditTestPage<?>> getEditPageClass() {
-		return EditArticleTestPage.class;
 	}
 }

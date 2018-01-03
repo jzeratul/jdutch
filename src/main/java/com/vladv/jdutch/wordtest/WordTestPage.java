@@ -11,7 +11,6 @@ import org.apache.wicket.model.Model;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.EditTestPage;
 import com.vladv.jdutch.pages.templates.TestPage;
 
 @MountPath("/words")
@@ -25,11 +24,6 @@ public class WordTestPage extends TestPage<WordTest> {
 	@Override
 	protected String appendJavascriptOnTestClick() {
 		return "prepareWordTestPage();";
-	}
-
-	@Override
-	protected Class<? extends EditTestPage<?>> getEditPageClass() {
-		return EditWordTestPage.class;
 	}
 
 	@Override

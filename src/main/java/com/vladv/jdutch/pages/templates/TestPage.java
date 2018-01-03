@@ -70,13 +70,6 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		testslist.setOutputMarkupId(true);
 		testslist.add(tests);
 		add(testslist);
-
-		testslist.add(new AjaxLink<Void>("edittest") {
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(getEditPageClass());
-			}
-		});
 	}
 
 	private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
@@ -174,5 +167,4 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 	protected abstract List<T> getTests();
 	protected abstract String appendJavascriptOnTestClick();
-	protected abstract Class<? extends EditTestPage<?>> getEditPageClass();
 }
