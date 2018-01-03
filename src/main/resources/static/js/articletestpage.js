@@ -21,10 +21,10 @@ replaceAllDeAndHetWithInput = function() {
 			// there is an additional div enclosing the btn-group but that because of the call of .html() below
 			var strelem = "<div><div class='btn-group space' data-toggle='buttons'>"
 			      	      +"	   <label class='btn btn-default'>"
-			              +"	     <input type='radio' name='options" + index + "' value='de'> De"
+			              +"	     <input type='radio' name='newvalue" + index + "' value='de'> De"
 			              +"	   </label>"
 			              +"	   <label class='btn btn-default'>"
-				          +"	     <input type='radio' name='options" + index + "' value='het'> Het"
+				          +"	     <input type='radio' name='newvalue" + index + "' value='het'> Het"
 			              +"	   </label>"
 			              +"    </div>";
 			
@@ -32,7 +32,7 @@ replaceAllDeAndHetWithInput = function() {
 				// if the word starts with de
 				if(text.indexOf('de ') == 0) {
 					// keeping the original value in a hidden element to avoid additional processing on server
-					strelem = strelem + text.substring(2) + "<input type='text' name='value" + index + "' hidden='hidden' value='de'/><br/></div>";
+					strelem = strelem + text.substring(2) + "<input type='text' name='initialvalue" + index + "' hidden='hidden' value='de'/><br/></div>";
 					
 					// will not contain the enclosing <div> because the html() takes the inner html not the outer html
 					return $(strelem).html();
@@ -41,7 +41,7 @@ replaceAllDeAndHetWithInput = function() {
 				} else if(text.indexOf('het ') == 0) {
 					
 					// keeping the original value in a hidden element to avoid additional processing on server
-					strelem = strelem + text.substring(3) + "<input type='text' name='value" + index + "' hidden='hidden' value='het'/><br/></div>";
+					strelem = strelem + text.substring(3) + "<input type='text' name='initialvalue" + index + "' hidden='hidden' value='het'/><br/></div>";
 					
 					// will not contain the enclosing <div> because the html() takes the inner html not the outer html
 					return $(strelem).html();

@@ -24,8 +24,8 @@ prepareWordTestPage = function() {
 				var strelem = "<div class='form-group'>";
 				strelem = strelem.concat(
 				   "<label class='col-xs-5 control-label'>" + ((reverse) ? elements[1] : elements[0]) + "</label>",
-				   "<div class='col-xs-4'><input type='text' autocomplete='off' name='element" + index + "' class='form-control col-sm-3' /></div>", 
-				   "<input type='text' autocomplete='off' name='element_original" + index + "' hidden='hidden' value='" + ((reverse) ? elements[0] : elements[1]) + "' />",
+				   "<div class='col-xs-4'><input type='text' autocomplete='off' name='newvalue" + index + "' class='form-control col-sm-3' /></div>", 
+				   "<input type='text' autocomplete='off' name='initialvalue" + index + "' hidden='hidden' value='" + ((reverse) ? elements[0] : elements[1]) + "' />",
 				   "</div>"
 				);
 

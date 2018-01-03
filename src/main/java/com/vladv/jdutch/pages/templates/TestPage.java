@@ -17,6 +17,7 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.util.string.StringValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +34,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		addTestsList();
 		addTestContents();
 	}
-	
+
 	private void addTestsList() {
 		LoadableDetachableModel<List<T>> ldm = new LoadableDetachableModel<List<T>>() {
 
@@ -47,7 +48,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
 			@Override
 			protected void populateItem(ListItem<T> item) {
-				
+
 				item.add(new Label("name", PropertyModel.of(item.getModelObject(), "testname")));
 				item.add(new AjaxEventBehavior("click") {
 
@@ -58,7 +59,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 						target.appendJavaScript(appendJavascriptOnTestClick());
 
 						highlightSelection(item.getMarkupId(), target);
-						
+
 						target.add(item);
 					}
 				});
@@ -69,7 +70,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		testslist.setOutputMarkupId(true);
 		testslist.add(tests);
 		add(testslist);
-		
+
 		testslist.add(new AjaxLink<Void>("edittest") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
@@ -104,7 +105,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 		testcontents.add(feedback);
 
 		contributeToForm(form);
-		
+
 		AjaxButton submittest = new AjaxButton("submittest") {
 
 			@Override
@@ -134,11 +135,44 @@ public abstract class TestPage<T extends Test> extends BasePage {
 	}
 
 	protected void contributeToForm(Form<String> form) {
-		
+
+	}
+
+	protected long countPairs(IRequestParameters requestParameters) {
+
+		return requestParameters.getParameterNames().stream().filter(p -> p.contains("newvalue") || p.contains("initialvalue")).count() / 2;
+	}
+
+	protected String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
+
+		long pairs = countPairs(requestParameters); // we have pairs of newvalueX and initialvalueX
+
+		int answeredOk = 0;
+		int answeredNok = 0;
+		for (int i = 0; i < pairs; i++) {
+
+			StringValue newValue = requestParameters.getParameterValue("newvalue" + i);
+			StringValue initialValue = requestParameters.getParameterValue("initialvalue" + i);
+
+			if (newValue.isEmpty() || initialValue.isEmpty()) {
+				answeredNok++;
+				continue;
+			}
+
+			if (initialValue.toString().trim().equalsIgnoreCase(newValue.toString().trim())) {
+				answeredOk++;
+			} else {
+				answeredNok++;
+			}
+		}
+
+		StringBuilder results = new StringBuilder("Out of ").append(pairs).append(" items you got: ");
+		results.append(answeredOk).append(" right and ").append(answeredNok).append(" wrong.");
+
+		return results.toString();
 	}
 
 	protected abstract List<T> getTests();
-	protected abstract String takeTest(String obj, IRequestParameters requestParameters) throws Exception;
 	protected abstract String appendJavascriptOnTestClick();
 	protected abstract Class<? extends EditTestPage<?>> getEditPageClass();
 }
