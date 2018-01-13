@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -152,7 +151,15 @@ public abstract class TestPage<T extends Test> extends BasePage {
 				continue;
 			}
 
-			if (initialValue.toString().trim().equalsIgnoreCase(newValue.toString().trim())) {
+			String v1 = initialValue.toString();
+			String v2 = newValue.toString();
+
+			if (v1.length() > 50 || v2.length() > 50) {
+				answeredNok++;
+				continue;
+			}
+
+			if (v1.trim().equalsIgnoreCase(v2.trim())) {
 				answeredOk++;
 			} else {
 				answeredNok++;

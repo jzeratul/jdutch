@@ -27,7 +27,7 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	private ApplicationContext applicationContext;
 
 	@Autowired
-	private GatenTekstTestRepository gaatenTestRepository;
+	private GatenTekstTestRepository gatenTekstTestRepository;
 	
 	@Autowired
 	private VerbTestRepository verbTestRepository;
@@ -43,8 +43,8 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 		return HomePage.class;
 	}
 
-	public GatenTekstTestRepository getGaatenTestRepository() {
-		return gaatenTestRepository;
+	public GatenTekstTestRepository getGatenTekstTestRepository() {
+		return gatenTekstTestRepository;
 	}
 	
 	public VerbTestRepository getVerbTestRepository() {
@@ -79,7 +79,7 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	}
 
 	public static List<GatenTekstTest> getAllGatenTeksts() {
-		return JDutchApplication.getApp().getGaatenTestRepository().findAll();
+		return JDutchApplication.getApp().getGatenTekstTestRepository().findAll();
 	}
 
 	public static List<WordTest> getAllWordTests() {

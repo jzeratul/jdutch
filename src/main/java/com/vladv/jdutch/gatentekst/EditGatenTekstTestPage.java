@@ -24,12 +24,12 @@ public class EditGatenTekstTestPage extends EditTestPage<GatenTekstTest> {
 
 	@Override
 	protected void saveTest(GatenTekstTest test) {
-		JDutchApplication.getApp().getGaatenTestRepository().save(test);
+		JDutchApplication.getApp().getGatenTekstTestRepository().save(test);
 	}
 
 	@Override
 	protected void deleteTest(String testname) {
-		JDutchApplication.getApp().getGaatenTestRepository().deleteGaatenTestByTestname(testname);
+		JDutchApplication.getApp().getGatenTekstTestRepository().deleteGaatenTestByTestname(testname);
 	}
 
 	@Override

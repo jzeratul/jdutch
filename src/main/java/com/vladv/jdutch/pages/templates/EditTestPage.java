@@ -38,7 +38,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 		Label helpMessage = new Label("testhelpmessage", Model.of(getTestHelpMessage()));
 		form.add(helpMessage);
 		helpMessage.setEscapeModelStrings(false);
-		
+
 		form.add(new AjaxButton("delete", Model.of("Delete")) {
 
 			@Override
@@ -64,11 +64,18 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 			protected void onSubmit(AjaxRequestTarget target) {
 
 				T obj = form.getModelObject();
-				
+
 				if (obj.getTestcontents() == null || obj.getTestname() == null) {
 					return;
 				}
-				
+
+				if (obj.getTestname().length() > 50) {
+					obj.setTestname(obj.getTestname().substring(0, 50));
+				}
+				if (obj.getTestcontents().length() > 2000) {
+					obj.setTestcontents(obj.getTestcontents().substring(0, 2000));
+				}
+
 				obj.setTestcontents(obj.getTestcontents().toLowerCase());
 				saveTest(obj);
 				form.setModelObject(getNewObject());
@@ -76,7 +83,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 				reloadTests(target);
 			}
 		});
-		
+
 		LoadableDetachableModel<List<T>> ldm = new LoadableDetachableModel<List<T>>() {
 
 			@Override
@@ -100,7 +107,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 						item.add(AttributeModifier.replace("class", Model.of("list-group-item list-group-item-action active")));
 						target.add(item);
 						target.add(form);
-						
+
 						highlightSelection(item.getMarkupId(), target);
 
 						target.appendJavaScript("prepareSummerNote();");
@@ -113,7 +120,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 		testslist.setOutputMarkupId(true);
 		add(testslist);
 		testslist.add(tests);
-		
+
 		testslist.add(new AjaxLink<Void>("edittest") {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
@@ -130,7 +137,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 	protected void reloadTests(AjaxRequestTarget target) {
 		target.add(get("testslist"));
 	}
-	
+
 	protected abstract String getTestHelpMessage();
 	protected abstract T getNewObject();
 	protected abstract void saveTest(T test);
