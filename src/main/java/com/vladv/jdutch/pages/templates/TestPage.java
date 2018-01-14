@@ -74,6 +74,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 	private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
 		String js = String.format("makeActiveThisElement('#%s', '#%s a');", itemMarkupId, get("testslist").getMarkupId());
 		target.appendJavaScript(js);
+		target.appendJavaScript("showHideSubmitButton();");
 	}
 
 	public void refresh(AjaxRequestTarget target, String contents) {
@@ -82,14 +83,15 @@ public abstract class TestPage<T extends Test> extends BasePage {
 	}
 
 	private void addTestContents() {
-		WebMarkupContainer testcontents = new WebMarkupContainer("testcontents");
-		add(testcontents);
 		Form<String> form = new Form<String>("form", Model.of(""));
 
 		final Label contents = new Label("contents", Model.of(""));
 		form.add(contents);
 		contents.setEscapeModelStrings(false);
 		contents.setOutputMarkupId(true);
+
+		WebMarkupContainer testcontents = new WebMarkupContainer("testcontents");
+		add(testcontents);
 
 		final JFeedbackPanel feedback = new JFeedbackPanel("feedback");
 		feedback.setOutputMarkupId(true);
