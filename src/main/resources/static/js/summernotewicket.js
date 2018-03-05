@@ -6,7 +6,7 @@ prepareSummerNote = function() {
 	$('#summernote').summernote({
 		  toolbar: [
 		    // [groupName, [list of button]]
-		    ['style', ['bold','clear']],
+		    ['style', ['bold', 'underline', 'clear']],
 		  ]
 		});
 
