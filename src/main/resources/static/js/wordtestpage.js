@@ -68,7 +68,10 @@ function showHint(index) {
 	
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
-	definition = $('#definition' + index).val().trim();
+	definition = $('#definition' + index).val();
+	if(definition) {
+		definition = definition.trim();
+	}
 	hintstart = definition.indexOf("(");
 	hintend = definition.indexOf(")");
 	hint =  hintstart > 0 ? definition.substr(hintstart, hintend) : 0; 
@@ -87,7 +90,10 @@ function justValidate(index) {
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
 	feedback = $('#feedback' + index);
-	definition = $('#definition' + index).val().trim();
+	definition = $('#definition' + index).val();
+	if(definition) {
+		definition = definition.trim();
+	}
 	typed = $('#typed' + index).val().trim();
 	hintstart = definition.indexOf("(");
 	hintend = definition.indexOf(")");
@@ -129,7 +135,10 @@ function validateAndHelp(index) {
 	
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
-	definition = $('#definition' + index).val().trim();
+	definition = $('#definition' + index).val();
+	if(definition) {
+		definition = definition.trim();
+	}
 	feedback = $('#feedback' + index);
 	typed = $('#typed' + index).val().trim();
 	hintstart = definition.indexOf("(");
