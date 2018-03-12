@@ -65,17 +65,6 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 
 				T obj = form.getModelObject();
 
-				if (obj.getTestcontents() == null || obj.getTestname() == null) {
-					return;
-				}
-
-				if (obj.getTestname().length() > 50) {
-					obj.setTestname(obj.getTestname().substring(0, 50));
-				}
-				if (obj.getTestcontents().length() > 2000) {
-					obj.setTestcontents(obj.getTestcontents().substring(0, 2000));
-				}
-
 				obj.setTestcontents(obj.getTestcontents().toLowerCase());
 				saveTest(obj);
 				form.setModelObject(getNewObject());
