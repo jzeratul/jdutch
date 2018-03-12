@@ -67,7 +67,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 
 				obj.setTestcontents(obj.getTestcontents().toLowerCase());
 				saveTest(obj);
-				form.setModelObject(getNewObject());
+        form.setModelObject(getNewObject());
 				target.add(form);
 				reloadTests(target);
 			}

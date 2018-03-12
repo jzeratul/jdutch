@@ -10,10 +10,13 @@ showHideSubmitButton = function() {
 	var contents = $("#testcontents").html();
 	
 	var submit = $("#submitid");
+	var testme = $("#testme");
 	
 	if(contents) {
 		submit.show();
+		testme.show();
 	} else {
+		testme.hide();
 		submit.hide();
 	}
 	
