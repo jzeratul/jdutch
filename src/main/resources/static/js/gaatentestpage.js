@@ -3,14 +3,18 @@ replaceAllBoldElementsWithInput = function() {
 	var idx = 0;
 	var el = $('b');
 	if($.trim(el.html()) ) {
+		
 		el.replaceWith(function() {
-			var newelem = $("<input type='text' autocomplete='off' />");
-			newelem.attr('name', 'newvalue' + idx);
-			var oldelem = $("<input type='text' hidden='hidden' autocomplete='off' />");
-			oldelem.attr('name', 'initialvalue' + idx);
-			oldelem.attr('value', $(this).contents().text());
+			
+			var txt = $(this).contents().text();
+			var newelem = "<input type='text' autocomplete='off' name='newvalue"+idx+"' id='newvalue"+idx+"' class='newvalues' />";
+			var hidelem = "<input type='text' autocomplete='off' name='initialvalue"+idx+"' id='initialvalue"+idx+"' value='"+txt+"' class='oldvalues' hidden='hidden'  />";
 			idx++;
-			return newelem.append($(this).contents()).append(oldelem);
+			return newelem = newelem.concat(hidelem);
 	    });
 	}
 };
+
+submitForm = function() {
+
+}

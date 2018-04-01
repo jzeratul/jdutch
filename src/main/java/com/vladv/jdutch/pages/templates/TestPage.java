@@ -146,8 +146,8 @@ public abstract class TestPage<T extends Test> extends BasePage {
     int answeredNok = 0;
     for (int i = 0; i < pairs; i++) {
 
-      StringValue newValue = requestParameters.getParameterValue("typed" + i);
-      StringValue initialValue = requestParameters.getParameterValue("definition" + i);
+      StringValue newValue = requestParameters.getParameterValue("newvalue" + i);
+      StringValue initialValue = requestParameters.getParameterValue("initialvalue" + i);
 
       if (newValue.isEmpty() || initialValue.isEmpty()) {
         answeredNok++;
