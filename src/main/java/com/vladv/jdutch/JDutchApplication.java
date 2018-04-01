@@ -83,7 +83,7 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	}
 
 	public static List<WordTest> getAllWordTests() {
-		return JDutchApplication.getApp().getWordTestRepository().findAll();
+    return JDutchApplication.getApp().getWordTestRepository().findAll();
 	}
 
 	public static List<VerbTest> getAllVerbs() {

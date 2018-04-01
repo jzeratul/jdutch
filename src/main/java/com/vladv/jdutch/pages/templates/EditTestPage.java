@@ -54,6 +54,7 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 					form.setModelObject(getNewObject());
 					this.setModelObject("Delete");
 					target.add(getPage());
+					target.appendJavaScript(getOnSaveJS());
 				}
 			}
 		});
@@ -65,11 +66,15 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 
 				T obj = form.getModelObject();
 
-				obj.setTestcontents(obj.getTestcontents().toLowerCase());
+        if (obj.getTestcontents() == null) {
+          obj.setTestcontents("");
+        }
+				obj.setTestcontents(obj.getTestcontents());
 				saveTest(obj);
         form.setModelObject(getNewObject());
 				target.add(form);
 				reloadTests(target);
+				target.appendJavaScript(getOnSaveJS());
 			}
 		});
 
@@ -118,7 +123,11 @@ public abstract class EditTestPage<T extends Test> extends BasePage {
 		});
 	}
 
-	private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
+	protected String getOnSaveJS() {
+    return "";
+  }
+
+  private void highlightSelection(String itemMarkupId, AjaxRequestTarget target) {
 		String js = String.format("makeActiveThisElement('#%s', '#%s a');", itemMarkupId, get("testslist").getMarkupId());
 		target.appendJavaScript(js);
 	}

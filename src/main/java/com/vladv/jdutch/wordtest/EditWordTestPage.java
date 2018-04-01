@@ -34,12 +34,17 @@ public class EditWordTestPage extends EditTestPage<WordTest> {
 	}
 
 	@Override
-	protected List<WordTest> getTests() {
-		return JDutchApplication.getAllWordTests();
-	}
+  protected List<WordTest> getTests() {
+    return JDutchApplication.getAllWordTests();
+  }
 
-	@Override
+  @Override
 	protected Class<? extends EditTestPage<?>> getEditPageClass() {
 		return EditWordTestPage.class;
 	}
+
+  @Override
+  protected String getOnSaveJS() {
+    return "prepareWordTestPage();";
+  }
 }
