@@ -135,7 +135,7 @@ public abstract class TestPage<T extends Test> extends BasePage {
 
   protected long countPairs(IRequestParameters requestParameters) {
 
-    return requestParameters.getParameterNames().stream().filter(p -> p.contains("typed") || p.contains("definition")).count() / 2;
+    return requestParameters.getParameterNames().stream().filter(p -> p.contains("newvalue") || p.contains("initialvalue")).count() / 2;
   }
 
   protected String takeTest(String obj, IRequestParameters requestParameters) throws Exception {
