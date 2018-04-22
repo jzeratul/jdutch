@@ -4,15 +4,14 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.Model;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.util.string.StringValue;
@@ -22,7 +21,7 @@ import com.vladv.jdutch.domain.Test;
 
 public abstract class BaseExamPage<T extends Test> extends WebPage {
 
-  Model<String> testTypeModel = Model.of("Selecteaza grup");
+  String selection = "Select test type";
   
   public BaseExamPage() {
 
@@ -37,17 +36,41 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
   }
 
   private void addTestsListHeader() {
-
-    DropDownChoice<String> testtype = new DropDownChoice<>("category", testTypeModel, () -> getTestCategories());
-    add(testtype);
-
-    testtype.add(AjaxFormComponentUpdatingBehavior.onEvent("change", target -> target.add(getPage().get("testslist"))));
-
+    Label selected = new Label("selected", PropertyModel.of(this, "selection"));
+    selected.setOutputMarkupId(true);
+    add(selected);
+    
+    ListView<String> option = new ListView<String>("option", () -> getTestCategories()) {
+      
+      @Override
+      protected void populateItem(ListItem<String> item) {
+        
+        AjaxLink<Object> ajaxLink = ComponentFactory.ajaxLink("link", (link, target) -> {
+          selection = item.getModelObject();
+          target.add(getPage().get("testslist"));
+          target.add(selected);
+        });
+        ajaxLink.setOutputMarkupId(true);
+        item.add(ajaxLink);
+        ajaxLink.add(new Label("name", item.getModelObject()));
+      }
+    };
+    
+    WebMarkupContainer categoriescontainer = new WebMarkupContainer("categoriescontainer");
+    categoriescontainer.setOutputMarkupId(true);
+    categoriescontainer.add(option);
+    add(categoriescontainer);
+    
   }
 
   private void addTestsList() {
+    
+    ListView<T> tests = new ListView<T>("tests", new LoadableDetachableModel<List<T>>() {
 
-    ListView<T> tests = new ListView<T>("tests", () -> getTests(testTypeModel.getObject())) {
+      @Override
+      protected List<T> load() {
+        return getTests(selection);
+      }}) {
 
       @Override
       protected void populateItem(ListItem<T> item) {
