@@ -46,4 +46,9 @@ public class WordTestPage extends ExamPage<WordTest> {
   protected Class<? extends EditExamPage<?>> getEditPageClass() {
     return EditWordTestPage.class;
   }
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllWordTestCategories();
+  }
 }

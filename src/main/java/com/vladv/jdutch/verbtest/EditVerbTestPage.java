@@ -32,11 +32,16 @@ public class EditVerbTestPage extends EditExamPage<VerbTest> {
 
 	@Override
 	protected List<VerbTest> getTests(String category) {
-		return JDutchApplication.getAllVerbs();
+		return JDutchApplication.getAllVerbs(category);
 	}
 
 	@Override
 	protected Class<? extends EditExamPage<?>> getEditPageClass() {
 		return EditVerbTestPage.class;
 	}
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllVerbTestCategories();
+  }
 }

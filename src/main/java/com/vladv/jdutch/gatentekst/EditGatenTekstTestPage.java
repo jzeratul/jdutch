@@ -34,12 +34,17 @@ public class EditGatenTekstTestPage extends EditExamPage<GatenTekstTest> {
 
 	@Override
 	protected List<GatenTekstTest> getTests(String category) {
-		return JDutchApplication.getAllGatenTeksts();
+		return JDutchApplication.getAllGatenTeksts(category);
 	}
 
 	@Override
 	protected Class<? extends EditExamPage<?>> getEditPageClass() {
 		return EditGatenTekstTestPage.class;
 	}
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllGatenTekstCategories();
+  }
 
 }

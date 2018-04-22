@@ -68,11 +68,11 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 		SpringApplication.run(JDutchApplication.class, args);
 	}
 
-	public static List<ArticleTest> getAllArticles() {
+	public static List<ArticleTest> getAllArticles(String ofCategory) {
 		return JDutchApplication.getApp().getArticleTestRepository().findAll();
 	}
 
-	public static List<GatenTekstTest> getAllGatenTeksts() {
+	public static List<GatenTekstTest> getAllGatenTeksts(String ofCategory) {
 		return JDutchApplication.getApp().getGatenTekstTestRepository().findAll();
 	}
 
@@ -80,11 +80,23 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
     return JDutchApplication.getApp().getWordTestRepository().findAll();
 	}
 
-	public static List<VerbTest> getAllVerbs() {
+	public static List<VerbTest> getAllVerbs(String ofCategory) {
 		return JDutchApplication.getApp().getVerbTestRepository().findAll();
 	}
 
-  public static List<String> getAllCategories() {
-    return getAllGatenTeksts().stream().map(g -> g.getCategory()).collect(Collectors.toList());
+  public static List<String> getAllGatenTekstCategories() {
+    return getAllGatenTeksts(null).stream().map(g -> g.getCategory()).collect(Collectors.toList());
+  }
+
+  public static List<String> getAllArticleTestCategories() {
+    return getAllArticles(null).stream().map(g -> g.getCategory()).collect(Collectors.toList());
+  }
+
+  public static List<String> getAllVerbTestCategories() {
+    return getAllVerbs(null).stream().map(g -> g.getCategory()).collect(Collectors.toList());
+  }
+
+  public static List<String> getAllWordTestCategories() {
+    return getAllWordTests(null).stream().map(g -> g.getCategory()).collect(Collectors.toList());
   }
 }

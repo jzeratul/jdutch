@@ -12,7 +12,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.wicketstuff.lambda.components.ComponentFactory;
 
-import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.Test;
 
 public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
@@ -58,7 +57,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       target.add(this.getPage());
     }));
 		
-    ListView<String> categories = new ListView<String>("categories", () -> JDutchApplication.getAllCategories()) {
+    ListView<String> categories = new ListView<String>("categories", () -> getTestCategories()) {
       
       @Override
       protected void populateItem(ListItem<String> item) {

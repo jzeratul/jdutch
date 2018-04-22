@@ -15,7 +15,7 @@ public class VerbTestPage extends ExamPage<VerbTest> {
 
 	@Override
 	protected List<VerbTest> getTests(String category) {
-		return JDutchApplication.getAllVerbs();
+		return JDutchApplication.getAllVerbs(category);
 	}
 
 	@Override
@@ -33,5 +33,10 @@ public class VerbTestPage extends ExamPage<VerbTest> {
   @Override
   protected Class<? extends EditExamPage<?>> getEditPageClass() {
     return EditVerbTestPage.class;
+  }
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllVerbTestCategories();
   }
 }

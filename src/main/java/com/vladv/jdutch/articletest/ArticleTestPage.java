@@ -13,7 +13,7 @@ public class ArticleTestPage extends ExamPage<ArticleTest> {
 
 	@Override
 	protected List<ArticleTest> getTests(String category) {
-		return JDutchApplication.getAllArticles();
+		return JDutchApplication.getAllArticles(category);
 	}
 
 	@Override
@@ -24,5 +24,10 @@ public class ArticleTestPage extends ExamPage<ArticleTest> {
   @Override
   protected Class<? extends EditExamPage<?>> getEditPageClass() {
     return EditArticleTestPage.class;
+  }
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllArticleTestCategories();
   }
 }

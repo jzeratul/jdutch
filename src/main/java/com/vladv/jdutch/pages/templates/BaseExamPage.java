@@ -18,7 +18,6 @@ import org.apache.wicket.request.IRequestParameters;
 import org.apache.wicket.util.string.StringValue;
 import org.wicketstuff.lambda.components.ComponentFactory;
 
-import com.vladv.jdutch.JDutchApplication;
 import com.vladv.jdutch.domain.Test;
 
 public abstract class BaseExamPage<T extends Test> extends WebPage {
@@ -39,7 +38,7 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
 
   private void addTestsListHeader() {
 
-    DropDownChoice<String> testtype = new DropDownChoice<>("category", testTypeModel, () -> JDutchApplication.getAllCategories());
+    DropDownChoice<String> testtype = new DropDownChoice<>("category", testTypeModel, () -> getTestCategories());
     add(testtype);
 
     testtype.add(AjaxFormComponentUpdatingBehavior.onEvent("change", target -> target.add(getPage().get("testslist"))));
@@ -129,6 +128,8 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
 
   protected abstract Class<? extends EditExamPage<?>> getEditPageClass();
 
+  protected abstract List<String> getTestCategories();
+  
   protected abstract List<T> getTests(String ofCategory);
 
   protected abstract void onTestClick(ListItem<T> item, AjaxRequestTarget target);

@@ -47,4 +47,9 @@ public class EditWordTestPage extends EditExamPage<WordTest> {
   protected String getOnSaveJS() {
     return "prepareWordTestPage();";
   }
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllWordTestCategories();
+  }
 }

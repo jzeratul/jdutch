@@ -35,11 +35,16 @@ public class EditArticleTestPage extends EditExamPage<ArticleTest> {
 
 	@Override
 	protected List<ArticleTest> getTests(String category) {
-		return JDutchApplication.getAllArticles();
+		return JDutchApplication.getAllArticles(category);
 	}
 
 	@Override
 	protected Class<? extends EditExamPage<?>> getEditPageClass() {
 		return EditArticleTestPage.class;
 	}
+
+  @Override
+  protected List<String> getTestCategories() {
+    return JDutchApplication.getAllArticleTestCategories();
+  }
 }
