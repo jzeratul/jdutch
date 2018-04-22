@@ -6,3 +6,7 @@
 	width: 100px;
 	margin: 3px 3px 3px 3px;
 }
+
+.hideme {
+	display: none;
+}
