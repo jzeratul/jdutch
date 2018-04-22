@@ -5,10 +5,10 @@ import java.util.List;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.EditTestPage;
+import com.vladv.jdutch.pages.templates.EditExamPage;
 
 @MountPath("/editarticle")
-public class EditArticleTestPage extends EditTestPage<ArticleTest> {
+public class EditArticleTestPage extends EditExamPage<ArticleTest> {
 
 	@Override
 	protected String getTestHelpMessage() {
@@ -34,12 +34,12 @@ public class EditArticleTestPage extends EditTestPage<ArticleTest> {
 	}
 
 	@Override
-	protected List<ArticleTest> getTests() {
+	protected List<ArticleTest> getTests(String category) {
 		return JDutchApplication.getAllArticles();
 	}
 
 	@Override
-	protected Class<? extends EditTestPage<?>> getEditPageClass() {
+	protected Class<? extends EditExamPage<?>> getEditPageClass() {
 		return EditArticleTestPage.class;
 	}
 }

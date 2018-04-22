@@ -1,8 +1,8 @@
 package com.vladv.jdutch;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +14,6 @@ import com.vladv.jdutch.articletest.ArticleTest;
 import com.vladv.jdutch.articletest.ArticleTestRepository;
 import com.vladv.jdutch.gatentekst.GatenTekstTest;
 import com.vladv.jdutch.gatentekst.GatenTekstTestRepository;
-import com.vladv.jdutch.home.HomePage;
 import com.vladv.jdutch.verbtest.VerbTest;
 import com.vladv.jdutch.verbtest.VerbTestRepository;
 import com.vladv.jdutch.wordtest.WordTest;
@@ -37,11 +36,6 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	
 	@Autowired
 	private WordTestRepository wordTestRepository;
-
-	@Override
-	public Class<? extends Page> getHomePage() {
-		return HomePage.class;
-	}
 
 	public GatenTekstTestRepository getGatenTekstTestRepository() {
 		return gatenTekstTestRepository;
@@ -82,11 +76,15 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 		return JDutchApplication.getApp().getGatenTekstTestRepository().findAll();
 	}
 
-	public static List<WordTest> getAllWordTests() {
+	public static List<WordTest> getAllWordTests(String ofCategory) {
     return JDutchApplication.getApp().getWordTestRepository().findAll();
 	}
 
 	public static List<VerbTest> getAllVerbs() {
 		return JDutchApplication.getApp().getVerbTestRepository().findAll();
 	}
+
+  public static List<String> getAllCategories() {
+    return getAllGatenTeksts().stream().map(g -> g.getCategory()).collect(Collectors.toList());
+  }
 }

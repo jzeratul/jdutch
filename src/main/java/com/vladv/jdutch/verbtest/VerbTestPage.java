@@ -7,13 +7,14 @@ import org.apache.wicket.request.IRequestParameters;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.TestPage;
+import com.vladv.jdutch.pages.templates.EditExamPage;
+import com.vladv.jdutch.pages.templates.ExamPage;
 
 @MountPath("/verbs")
-public class VerbTestPage extends TestPage<VerbTest> {
+public class VerbTestPage extends ExamPage<VerbTest> {
 
 	@Override
-	protected List<VerbTest> getTests() {
+	protected List<VerbTest> getTests(String category) {
 		return JDutchApplication.getAllVerbs();
 	}
 
@@ -28,4 +29,9 @@ public class VerbTestPage extends TestPage<VerbTest> {
 
 		return "TODO " + parameterNames.size();
 	}
+
+  @Override
+  protected Class<? extends EditExamPage<?>> getEditPageClass() {
+    return EditVerbTestPage.class;
+  }
 }

@@ -1,6 +1,8 @@
 // TODO
 prepareWordTestPage = function() {
 	
+	showHideSubmitButton();
+	
 	// we know that all the contents of the test are separated by <p> tags for each line - this is how the summernote component works
 	var el = $('#inputform p');
 
@@ -27,17 +29,17 @@ prepareWordTestPage = function() {
 				strelem = strelem.concat(
 				   "<label class='col-xs-3 control-label'>" + word + "</label>",
 				   "<div class='col-xs-3 col-offset-3'>" +
-				   		"<input type='text' autocomplete='off' name='typed" + index + "' id='typed" + index + "' class='noNotSubmitNnEnter form-control col-xs-12'  aria-describedby='helpBlock" + index + "' />",
+				   		"<input type='text' autocomplete='off' name='newvalue" + index + "' id='newvalue" + index + "' class='noNotSubmitNnEnter form-control col-xs-12'  aria-describedby='helpBlock" + index + "' />",
 
 					   	"<span id='feedback" + index + "' class='glyphicon form-control-feedback' aria-hidden='true'></span>",
 					   	"<span class='sr-only'></span>",
 				   		"<span id='helpBlock" + index + "' class='help-block'></span>",
 				   "</div>", 
-				   "<input type='text' autocomplete='off' name='definition" + index + "' id='definition" + index + "' hidden='hidden' value='" + meaning + "' />",
-				   "<div class='col-xs-2'>" +
-					   "<a class='btn btn-xs btn-default' onclick='justValidate(" + index + ");'><span class='glyphicon glyphicon-play-circle'>Test</span></a>",
-					   "<a class='btn btn-xs btn-default' onclick='showHint(" + index + ");'><span class='glyphicon glyphicon-question-sign'>Hint</span></a>" +
-					   "<a class='btn btn-xs btn-default' onclick='validateAndHelp(" + index + ");'><span class='glyphicon glyphicon-exclamation-sign'>TestShow</span></a>" +
+				   "<input type='text' autocomplete='off' name='initialvalue" + index + "' id='initialvalue" + index + "' hidden='hidden' value='" + meaning + "' />",
+				   "<div class='btn-group' role='group'>" +
+					   "<a class='btn btn-sm btn-default' onclick='justValidate(" + index + ");'><span class='glyphicon glyphicon-play-circle'>Test</span></a>",
+					   "<a class='btn btn-sm btn-default' onclick='showHint(" + index + ");'><span class='glyphicon glyphicon-question-sign'>Hint</span></a>" +
+					   "<a class='btn btn-sm btn-default' onclick='validateAndHelp(" + index + ");'><span class='glyphicon glyphicon-exclamation-sign'>TestShow</span></a>" +
 				   "</div>",
 				 "</div>"
 				);
@@ -54,6 +56,7 @@ $(function() {
 			e.preventDefault();
 		}
 	});
+	prepareWordTestPage();
 });
 
 
@@ -68,7 +71,7 @@ function showHint(index) {
 	
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
-	definition = $('#definition' + index).val();
+	definition = $('#initialvalue' + index).val();
 	if(definition) {
 		definition = definition.trim();
 	}
@@ -79,7 +82,7 @@ function showHint(index) {
 	if(hint.length > 0 ) {
 		helpblock.text("Hint: " + hint);
 	} else {
-		helpblock.text("No hint available. Add a hint between parentheses:  word=definition (hint) ");
+		helpblock.text(".... ");
 	}
 	formgroup.removeClass("has-success");
 	
@@ -90,11 +93,14 @@ function justValidate(index) {
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
 	feedback = $('#feedback' + index);
-	definition = $('#definition' + index).val();
+	definition = $('#initialvalue' + index).val();
 	if(definition) {
 		definition = definition.trim();
 	}
-	typed = $('#typed' + index).val().trim();
+	typed = $('#typed' + index).val();
+	if(typed) {
+		typed = typed.trim();
+	}
 	hintstart = definition.indexOf("(");
 	hintend = definition.indexOf(")");
 	hint =  hintstart > 0 ? definition.substring(hintstart, hintend) : 0; 
@@ -135,12 +141,15 @@ function validateAndHelp(index) {
 	
 	formgroup = $('#formgroup' + index);
 	helpblock = $('#helpBlock' + index);
-	definition = $('#definition' + index).val();
+	definition = $('#initialvalue' + index).val();
 	if(definition) {
 		definition = definition.trim();
 	}
 	feedback = $('#feedback' + index);
-	typed = $('#typed' + index).val().trim();
+	typed = $('#typed' + index).val();
+	if(typed) {
+		typed = typed.trim();
+	}
 	hintstart = definition.indexOf("(");
 	hintend = definition.indexOf(")");
 	hint =  hintstart > 0 ? definition.substr(hintstart, hintend) : 0; 
@@ -171,7 +180,7 @@ function validateAndHelp(index) {
 		feedback.addClass("glyphicon-ok");
 	} else {
 		formgroup.addClass("has-error");
-		helpblock.text("ooopsie... expected: " + definition);
+		helpblock.text(definition);
 		formgroup.removeClass("has-success");
 		feedback.addClass("glyphicon-remove");
 		feedback.removeClass("glyphicon-ok");

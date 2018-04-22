@@ -11,14 +11,15 @@ import org.apache.wicket.model.Model;
 import org.wicketstuff.annotation.mount.MountPath;
 
 import com.vladv.jdutch.JDutchApplication;
-import com.vladv.jdutch.pages.templates.TestPage;
+import com.vladv.jdutch.pages.templates.EditExamPage;
+import com.vladv.jdutch.pages.templates.ExamPage;
 
 @MountPath("/words")
-public class WordTestPage extends TestPage<WordTest> {
+public class WordTestPage extends ExamPage<WordTest> {
 
 	@Override
-	protected List<WordTest> getTests() {
-		return JDutchApplication.getAllWordTests();
+	protected List<WordTest> getTests(String ofCategory) {
+		return JDutchApplication.getAllWordTests(ofCategory);
 	}
 
 	@Override
@@ -40,4 +41,9 @@ public class WordTestPage extends TestPage<WordTest> {
 			}
 		});
 	}
+
+  @Override
+  protected Class<? extends EditExamPage<?>> getEditPageClass() {
+    return EditWordTestPage.class;
+  }
 }

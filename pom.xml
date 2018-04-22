@@ -45,6 +45,11 @@
 			<artifactId>wicketstuff-annotation</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.wicketstuff</groupId>
+		    <artifactId>wicketstuff-lambda-components</artifactId>
+			<version>${wicket.version}</version>
+		</dependency>
 		<!-- <dependency> <groupId>org.wicketstuff</groupId> <artifactId>wicketstuff-htmlcompressor</artifactId> 
 			</dependency> -->
 

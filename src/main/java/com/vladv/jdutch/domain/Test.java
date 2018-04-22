@@ -6,8 +6,10 @@ public class Test implements Serializable {
 
 	private String id;
 
+	private String category;
+	
 	private String testname;
-	private String testcontents;
+	private String testcontents = "";
 
 	public Test() {
 	}
@@ -31,7 +33,7 @@ public class Test implements Serializable {
 	}
 
 	public void setTestcontents(String testcontents) {
-		this.testcontents = testcontents;
+		this.testcontents = testcontents == null ? "" : testcontents;
 	}
 
 	public String getId() {
@@ -41,4 +43,12 @@ public class Test implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
 }

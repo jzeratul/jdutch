@@ -1,19 +1,9 @@
-<wicket:head xmlns:wicket="http://wicket.apache.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/" lang="en">
 
-</wicket:head>
+<wicket:extend>
 
-<wicket:extend xmlns:wicket="http://wicket.apache.org">
-
-  <div class="row">
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-      <div class="list-group scroll" wicket:id="testslist">
-      
-        <a class="list-group-item list-group-item-action" wicket:id="tests" style="cursor: pointer;">
-              <span wicket:id="name"></span>
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12" wicket:id="testcontents">
+    <div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
 
       <div wicket:id="feedback"></div>
       <form wicket:id="form" id="inputform" class="form-horizontal">
@@ -36,6 +26,6 @@
 
       </form>
     </div>
-  </div>
 
 </wicket:extend>
+</html>

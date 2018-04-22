@@ -1,4 +1,7 @@
-<wicket:head xmlns:wicket="http://wicket.apache.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/" lang="en">
+
+<wicket:head>
 
   <link href="css/summernote.css" rel="stylesheet">
   <script src="js/summernote.js"></script>
@@ -6,19 +9,8 @@
 
 </wicket:head>
 
-<wicket:extend xmlns:wicket="http://wicket.apache.org">
+<wicket:extend>
 
-  <div class="row">
-  
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-12">
-      <div class="list-group scroll" wicket:id="testslist">
-        <a class="list-group-item list-group-item-action" wicket:id="edittest" style="cursor: pointer;">New Test</a>
-        <a class="list-group-item list-group-item-action" wicket:id="tests" style="cursor: pointer;">
-          <span wicket:id="name"></span>
-        </a>
-      </div>
-    </div>
-  
     <div class="col-lg-10 col-md-9 col-sm-8 col-xs-12">
 
       <form wicket:id="form">
@@ -27,18 +19,37 @@
           <label for="testname">Test Name</label> 
           <input type="text" class="form-control" id="testname" wicket:id="testname" autocomplete="off" placeholder="Enter the name of the test">
         </div>
+        
+        <div class="form-group">
+        
+              <div class="dropdown">
+                  <a href="#" class="dropdown-toggle" id="drop1" data-toggle="dropdown" role="button" 
+                      aria-haspopup="true" aria-expanded="false"> Type <span class="caret"></span></a>
+                  <ul class="dropdown-menu" aria-labelledby="drop1" wicket:id="categoriescontainer">
+                    <li wicket:id="categories"><a onclick="$('#cat').val($(this).find('label').html());"> 
+                        <label wicket:id="category"></label>
+                     </a></li>
+                  </ul>
+                
+                <input type="text" class="form-control" id="cat" wicket:id="category" autocomplete="off" placeholder="category">
+              
+              </div>
+        </div>
+        
         <div class="form-group">
           <label for="summernote">Test Contents</label>
           <p wicket:id="testhelpmessage"></p>
           <div id="summernote"></div>
         </div>
+        
         <textarea wicket:id="testcontents" hidden="hidden" id="htc"></textarea>
         <button type="submit" class="btn btn-primary" wicket:id="save" onclick="adaptForm()">Submit</button>
         <button type="button" class="btn btn-danger" wicket:id="delete">Delete</button>
+      
       </form>
       
       <wicket:child />
     </div>
-  </div>
   
 </wicket:extend>
+</html>
