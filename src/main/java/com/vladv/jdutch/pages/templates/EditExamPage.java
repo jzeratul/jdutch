@@ -54,7 +54,8 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       saveTest(obj);
       
       form.setModelObject(getNewObject());
-      target.add(this.getPage());
+      target.add(getPage().get("categoriescontainerbase"));
+      target.add(getPage().get("categoriescontainer"));
     }));
 		
     ListView<String> categories = new ListView<String>("categories", () -> getTestCategories()) {

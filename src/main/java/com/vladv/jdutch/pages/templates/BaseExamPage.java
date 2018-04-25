@@ -61,7 +61,7 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
       }
     };
     
-    WebMarkupContainer categoriescontainer = new WebMarkupContainer("categoriescontainer");
+    WebMarkupContainer categoriescontainer = new WebMarkupContainer("categoriescontainerbase");
     categoriescontainer.setOutputMarkupId(true);
     categoriescontainer.add(option);
     add(categoriescontainer);
