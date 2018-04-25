@@ -97,7 +97,7 @@ function justValidate(index) {
 	if(definition) {
 		definition = definition.trim();
 	}
-	typed = $('#typed' + index).val();
+	typed = $('#newvalue' + index).val();
 	if(typed) {
 		typed = typed.trim();
 	}
@@ -111,7 +111,7 @@ function justValidate(index) {
 	synonymExists = definition.indexOf("|") > -1;
 	if(synonymExists) {
 		synonyms = definitionWithoutHints.split("|");
-		for(var i = 0; i< synonyms.lenght; i++) {
+		for(var i = 0; i< synonyms.length; i++) {
 			if(typed == synonyms[i].trim()) {
 				correct = true;
 				break;
@@ -146,7 +146,7 @@ function validateAndHelp(index) {
 		definition = definition.trim();
 	}
 	feedback = $('#feedback' + index);
-	typed = $('#typed' + index).val();
+	typed = $('#newvalue' + index).val();
 	if(typed) {
 		typed = typed.trim();
 	}
@@ -160,7 +160,7 @@ function validateAndHelp(index) {
 	synonymExists = definition.indexOf("|") > -1;
 	if(synonymExists) {
 		synonyms = definitionWithoutHints.split("|");
-		for(var i = 0; i< synonyms.lenght; i++) {
+		for(var i = 0; i< synonyms.length; i++) {
 			if(typed == synonyms[i].trim()) {
 				correct = true;
 				break;
