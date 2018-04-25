@@ -21,6 +21,7 @@ import com.vladv.jdutch.wordtest.WordTestRepository;
 
 @SpringBootApplication
 public class JDutchApplication extends WicketBootStandardWebApplication {
+  private static final String ALL_CATEGORIES = "ALL      ";
 
 	@Autowired
 	private ApplicationContext applicationContext;
@@ -69,28 +70,28 @@ public class JDutchApplication extends WicketBootStandardWebApplication {
 	}
 
 	public static List<ArticleTest> getAllArticles(String ofCategory) {
-	  if(ofCategory == null) {
+	  if(ofCategory == null || ofCategory == ALL_CATEGORIES) {
 	    return JDutchApplication.getApp().getArticleTestRepository().findAll();
 	  }
 		return JDutchApplication.getApp().getArticleTestRepository().findTestByCategory(ofCategory);
 	}
 
 	public static List<GatenTekstTest> getAllGatenTeksts(String ofCategory) {
-    if(ofCategory == null) {
+    if(ofCategory == null || ofCategory == ALL_CATEGORIES) {
       return JDutchApplication.getApp().getGatenTekstTestRepository().findAll();
     }
     return JDutchApplication.getApp().getGatenTekstTestRepository().findTestByCategory(ofCategory);
 	}
 
   public static List<WordTest> getAllWordTests(String ofCategory) {
-    if (ofCategory == null) {
+    if (ofCategory == null || ofCategory == ALL_CATEGORIES) {
       return JDutchApplication.getApp().getWordTestRepository().findAll();
     }
     return JDutchApplication.getApp().getWordTestRepository().findTestByCategory(ofCategory);
   }
 
   public static List<VerbTest> getAllVerbs(String ofCategory) {
-    if (ofCategory == null) {
+    if (ofCategory == null || ofCategory == ALL_CATEGORIES) {
       return JDutchApplication.getApp().getVerbTestRepository().findAll();
     }
     return JDutchApplication.getApp().getVerbTestRepository().findTestByCategory(ofCategory);

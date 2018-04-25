@@ -40,7 +40,12 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
     selected.setOutputMarkupId(true);
     add(selected);
     
-    ListView<String> option = new ListView<String>("option", () -> getTestCategories()) {
+    ListView<String> option = new ListView<String>("option", () -> {
+      
+      List<String> testCategories = getTestCategories();
+      testCategories.add(0, "ALL      ");
+      return testCategories;
+    }) {
       
       @Override
       protected void populateItem(ListItem<String> item) {
