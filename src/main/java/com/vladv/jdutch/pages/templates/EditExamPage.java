@@ -50,7 +50,6 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
 		
 		WebMarkupContainer savefeedback = new WebMarkupContainer("savefeedback");
 		savefeedback.setOutputMarkupId(true);
-		savefeedback.setVisible(false);
 		form.add(savefeedback);
 		
 		form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
