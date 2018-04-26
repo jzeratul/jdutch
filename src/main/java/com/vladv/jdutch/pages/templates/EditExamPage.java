@@ -49,7 +49,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       }
 		}));
 		
-		form.add(new FeedbackPanel("savefeedback"));
+		form.add(new FeedbackPanel("savefeedback").setOutputMarkupId(true));
 		
 		form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
       
