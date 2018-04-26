@@ -48,6 +48,10 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       }
 		}));
 		
+		WebMarkupContainer savefeedback = new WebMarkupContainer("savefeedback");
+		savefeedback.setOutputMarkupId(true);
+		form.add(savefeedback);
+		
 		form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
       
 		  T obj = form.getModelObject();
@@ -56,6 +60,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       form.setModelObject(getNewObject());
       target.add(getPage().get("categoriescontainerbase"));
       target.add(getPage().get("form:categoriescontainer"));
+      target.add(getPage().get("form:savefeedback").setVisible(true));
       if(obj.getId() == null) {
          // new items must appear in the list
         target.add(getPage().get("testslist"));
@@ -89,6 +94,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
   @Override
   protected void onTestClick(ListItem<T> item, AjaxRequestTarget target) {
     target.appendJavaScript("prepareSummerNote();");
+    target.add(getPage().get("form:savefeedback").setVisible(false));
     target.add(get("form").setDefaultModelObject(item.getModelObject()));
   }
 
