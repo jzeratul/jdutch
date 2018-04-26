@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.wicketstuff.lambda.components.ComponentFactory;
@@ -16,6 +15,8 @@ import org.wicketstuff.lambda.components.ComponentFactory;
 import com.vladv.jdutch.domain.Test;
 
 public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
+  
+  private boolean saved;
   
 	@Override
 	protected void onInitialize() {
@@ -49,17 +50,39 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       }
 		}));
 		
-		form.add(new FeedbackPanel("savefeedback").setOutputMarkupId(true));
-		
-		form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
+		form.add(new WebMarkupContainer("savefeedback") {
+
+      @Override
+      public boolean isVisible() {
+        return saved;
+      }
+		  
+		});
+    
+    form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
       
-		  T obj = form.getModelObject();
+      T obj = form.getModelObject();
       saveTest(obj);
       
       form.setModelObject(getNewObject());
       target.add(getPage().get("categoriescontainerbase"));
       target.add(getPage().get("form:categoriescontainer"));
-      form.info("Saved successfully");
+      saved = true;
+      target.add(getPage().get("form:savefeedback"));
+      if(obj.getId() == null) {
+         // new items must appear in the list
+        target.add(getPage().get("testslist"));
+      }
+    }));    
+    form.add(ComponentFactory.ajaxButton("quicksave", (button, target) -> {
+      
+      T obj = form.getModelObject();
+      saveTest(obj);
+      
+      form.setModelObject(getNewObject());
+      target.add(getPage().get("categoriescontainerbase"));
+      target.add(getPage().get("form:categoriescontainer"));
+      saved = true;
       if(obj.getId() == null) {
          // new items must appear in the list
         target.add(getPage().get("testslist"));
@@ -79,6 +102,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
     wmc.setOutputMarkupId(true);
     wmc.add(categories);
     form.add(wmc);
+    saved = false;
 	}
 
 	protected String getOnSaveJS() {
@@ -93,6 +117,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
   @Override
   protected void onTestClick(ListItem<T> item, AjaxRequestTarget target) {
     target.appendJavaScript("prepareSummerNote();");
+    saved = false;
     target.add(getPage().get("form:savefeedback"));
     target.add(get("form").setDefaultModelObject(item.getModelObject()));
   }
