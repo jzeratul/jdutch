@@ -1,10 +1,15 @@
 $(document).ready(function() {
+	adaptToNiceScroll();
+	showHideSubmitButton();
+});
+
+adaptToNiceScroll = function() {
+
 	$(".scroll").niceScroll({
 		autohidemode : 'false'
 	});
 	
-	showHideSubmitButton();
-});
+}
 
 showHideSubmitButton = function() {
 	var contents = $("#testcontents").html();

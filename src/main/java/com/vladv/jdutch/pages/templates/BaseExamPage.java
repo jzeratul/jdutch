@@ -54,6 +54,8 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
           selection = item.getModelObject();
           target.add(getPage().get("testslist"));
           target.add(selected);
+
+          target.appendJavaScript("adaptToNiceScroll();");
         });
         ajaxLink.setOutputMarkupId(true);
         item.add(ajaxLink);
@@ -86,7 +88,6 @@ public abstract class BaseExamPage<T extends Test> extends WebPage {
           onTestClick(item, target);
 
           highlightSelection(item.getMarkupId(), target);
-
           target.add(item);
         }));
       }
