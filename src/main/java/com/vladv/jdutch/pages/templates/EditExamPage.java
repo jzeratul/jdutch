@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.wicketstuff.lambda.components.ComponentFactory;
@@ -48,9 +49,7 @@ public abstract class EditExamPage<T extends Test> extends BaseExamPage<T> {
       }
 		}));
 		
-		WebMarkupContainer savefeedback = new WebMarkupContainer("savefeedback");
-		savefeedback.setOutputMarkupId(true);
-		form.add(savefeedback);
+		form.add(new FeedbackPanel("savefeedback"));
 		
 		form.add(ComponentFactory.ajaxButton("save", (button, target) -> {
       
