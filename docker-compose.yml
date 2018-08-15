@@ -1,0 +1,22 @@
+version: '3'
+
+volumes:
+  mongodata:
+      driver: local
+
+services:
+  mongodb:
+      image: mongo
+      volumes:
+        - mongodata:/data/db
+      ports:
+        - 27017:27017
+  jdutch:
+      image: jdutch
+      environment:
+        spring.data.mongodb.host: mongodb
+        spring.data.mongodb.port: 27017
+      ports:
+        - 2017:2017
+      depends_on:
+        - mongodb
