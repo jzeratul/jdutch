@@ -1,5 +1,5 @@
 # jdutch
-Learn dutch by doing tests. Demo: https://goo.gl/yzntHD
+Learn dutch by doing tests. This is a playground for various technologies...
 
 The words used were taken from the publicly available list found here: [https://www.nt2school.nl](https://www.nt2school.nl/portal/site/e7563c1b-f530-4a4b-809a-19deb3ecdfb5/page/webcontent1)
 
